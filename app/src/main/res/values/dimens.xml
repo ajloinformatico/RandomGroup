@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--app dimens-->
+    <dimen name="defaultTitle">36sp</dimen>
+    <dimen name="defaultLabel">26sp</dimen>
+    <dimen name="defaultInput">20sp</dimen>
+    <dimen name="minIntLabel">48dp</dimen>
+
+    <!--unknown dimens-->
+    <dimen name="sp20">20sp</dimen>
+    <dimen name="sp40">40sp</dimen>
+    <dimen name="dp100">100dp</dimen>
+    <dimen name="dp20">20dp</dimen>
+    <dimen name="dp40">40dp</dimen>
+    <dimen name="dp60">60dp</dimen>
+
+    <!-- grids padding -->
+    <dimen name="defaultPadding">16dp</dimen>
+    <dimen name="rowConfigurePlayersPadding">8dp</dimen>
+    <dimen name="rowPlayersNamePadding">6dp</dimen>
+    <dimen name="recyclers_margin">48dp</dimen>
+    <dimen name="recycler_configure_player_name_margin">58dp</dimen>
+
+    <!-- dividers -->
+    <dimen name="configurePlayersGroupDivider">100dp</dimen>
+</resources>

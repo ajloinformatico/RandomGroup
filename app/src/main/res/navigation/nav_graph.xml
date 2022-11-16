@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/fragmentMain">
+
+    <fragment
+        android:id="@+id/fragmentMain"
+        android:name="es.lojo.randomgroup.ui.fragments.MainFragment"
+        android:label="Main fragment"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_fragmentMain_to_fragmentConfigurePlayers"
+            app:destination="@id/fragmentConfigurePlayers"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"  />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentConfigurePlayers"
+        android:name="es.lojo.randomgroup.ui.fragments.ConfigurePlayersFragment"
+        android:label="Configure players"
+        tools:layout="@layout/fragment_configure_players">
+
+        <!-- this players are necessary to re-print onBack pressed -->
+        <argument
+            android:name="players"
+            android:defaultValue="@null"
+            app:argType="es.lojo.randomgroup.data.models.ConfigureOfPlayersModel"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_fragmentConfigurePlayers_to_fragmentConfigurePlayersName"
+            app:destination="@id/fragmentConfigurePlayersName"
+            app:enterAnim="@anim/slide_bottom_up"
+            app:exitAnim="@anim/slide_bottom_down"
+            app:popEnterAnim="@anim/slide_bottom_up"
+            app:popExitAnim="@anim/slide_bottom_down" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentConfigurePlayersName"
+        android:name="es.lojo.randomgroup.ui.fragments.ConfigurePlayersNameFragment"
+        android:label="Configure players name"
+        tools:layout="@layout/fragment_configure_players_name">
+
+        <argument
+            android:name="players"
+            android:defaultValue="@null"
+            app:argType="es.lojo.randomgroup.data.models.ConfigureOfPlayersModel"
+            app:nullable="true" />
+
+        <action
+            android:id="@+id/action_fragmentConfigurePlayersName_to_fragmentFinalPlayersConfig"
+            app:destination="@id/fragmentFinalPlayersConfig"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentFinalPlayersConfig"
+        android:name="es.lojo.randomgroup.ui.fragments.FinalPlayersConfigFragment"
+        android:label="Final players config"
+        tools:layout="@layout/fragment_final_players_config">
+
+        <argument
+            android:name="players"
+            android:defaultValue="@null"
+            app:argType="es.lojo.randomgroup.data.models.ConfigurePlayersFinalModel"
+            app:nullable="true" />
+
+        <!--Show dialog to go to home or configure players or restart configuration-->
+        <action
+            android:id="@+id/action_fragmentFinalPlayersConfig_to_fragmentMain"
+            app:destination="@id/fragmentMain" />
+        <action
+            android:id="@+id/action_fragmentFinalPlayersConfig_to_fragmentConfigurePlayers"
+            app:destination="@id/fragmentConfigurePlayers" />
+
+    </fragment>
+
+
+</navigation>

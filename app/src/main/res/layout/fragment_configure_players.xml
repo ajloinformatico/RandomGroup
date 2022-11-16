@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.ConfigurePlayersFragment">
+
+    <EditText
+        android:id="@+id/competitionName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:gravity="center"
+        android:hint="@string/defaultCompetitionName"
+        android:inputType="textMultiLine"
+        android:text="@string/defaultCompetitionName"
+        android:textSize="@dimen/defaultTitle"
+        android:maxLength="35"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/numberOfPlayersLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/enterPlayersNumber"
+        android:textSize="@dimen/defaultLabel"
+        app:layout_constraintBottom_toTopOf="@id/numberOfPlayersInput"
+        app:layout_constraintTop_toBottomOf="@id/divider" />
+
+    <EditText
+        android:id="@+id/numberOfPlayersInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/defaultCompetitionName"
+        android:gravity="center"
+        android:inputType="numberDecimal"
+        android:minWidth="@dimen/minIntLabel"
+        android:text="@string/defaultNumberOfPlayers"
+        android:textSize="@dimen/defaultInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/numberOfPlayersLabel" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/configurePlayersGroupDivider"
+        app:layout_constraintTop_toBottomOf="@id/competitionName" />
+
+    <TextView
+        android:id="@+id/numberOfGroupsLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp100"
+        android:gravity="center"
+        android:text="@string/enterGroupsNumber"
+        android:textSize="@dimen/defaultLabel"
+        app:layout_constraintTop_toBottomOf="@id/numberOfPlayersInput" />
+
+    <EditText
+        android:id="@+id/numberOfGroupsInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/defaultCompetitionName"
+        android:gravity="center"
+        android:inputType="numberDecimal"
+        android:minWidth="@dimen/minIntLabel"
+        android:text="@string/defaultNumberOfGroups"
+        android:textSize="@dimen/defaultInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/numberOfGroupsLabel" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:visibility="visible"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/continueBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/continueButton"
+        style="@style/continueButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="@dimen/dp60"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

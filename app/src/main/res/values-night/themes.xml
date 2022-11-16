@@ -1,0 +1,40 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.RandomGroup" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorOnPrimary</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <!--play button-->
+    <style name="playBottom">
+        <item name="android:tint">@color/white</item>
+    </style>
+
+    <!--infolojo banner-->
+    <style name="infolojoBanner">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <!--continue button -->
+    <style name="continueButton">
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:textColor">@color/black_gray</item>
+    </style>
+
+    <!--recycler cardView -->
+    <style name="customCardView">
+        <item name="android:backgroundTint">@color/cardview_light_background</item>
+    </style>
+
+
+    <!-- splash screen -->
+</resources>
