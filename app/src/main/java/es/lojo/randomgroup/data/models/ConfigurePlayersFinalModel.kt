@@ -14,3 +14,6 @@ data class ConfigurePlayersFinalGroupsModel(
     val playersName: List<String>,
     val clicked: Boolean = false
 ): Serializable
+
+fun ConfigurePlayersFinalGroupsModel.isTheSameGroup(other: ConfigurePlayersFinalGroupsModel) =
+    this.groupNumber == other.groupNumber && this.playersName == other.playersName

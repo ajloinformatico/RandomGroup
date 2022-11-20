@@ -1,6 +1,7 @@
 package es.lojo.randomgroup.ui.states
 
 import es.lojo.randomgroup.data.models.ConfigureOfPlayersModel
+import es.lojo.randomgroup.data.models.ConfigurePlayersFinalGroupsModel
 import es.lojo.randomgroup.data.models.ConfigurePlayersFinalModel
 
 // region ConfigurePlayersViewState
@@ -47,5 +48,8 @@ sealed class FinalPlayersConfigViewState {
     object Unknown: FinalPlayersConfigViewState()
 }
 
-sealed class FinalPlayerConfigViewEvents
+data class FinalPlayerConfigState(
+    val group: ConfigurePlayersFinalGroupsModel
+)
+
 // endregion FinalPlayers

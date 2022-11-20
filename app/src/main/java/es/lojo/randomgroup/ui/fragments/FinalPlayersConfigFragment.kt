@@ -14,13 +14,14 @@ import es.lojo.randomgroup.commons.hide
 import es.lojo.randomgroup.commons.show
 import es.lojo.randomgroup.databinding.FragmentFinalPlayersConfigBinding
 import es.lojo.randomgroup.ui.adapters.finalplayersconfig.FinalPlayersConfigAdapter
+import es.lojo.randomgroup.ui.states.FinalPlayerConfigState
 import es.lojo.randomgroup.ui.states.FinalPlayersConfigViewState
 import es.lojo.randomgroup.ui.viewmodel.FinalPlayersConfigViewModel
 
 class FinalPlayersConfigFragment : Fragment() {
 
     private val viewModel: FinalPlayersConfigViewModel by viewModels()
-    private val adapter: FinalPlayersConfigAdapter = FinalPlayersConfigAdapter()
+    private val adapter: FinalPlayersConfigAdapter = FinalPlayersConfigAdapter(::manageAdapterEvent)
     private var binding: FragmentFinalPlayersConfigBinding? = null
     private val navController: NavController by lazy { findNavController() }
     private val safeArgs: FinalPlayersConfigFragmentArgs by navArgs()
@@ -77,6 +78,10 @@ class FinalPlayersConfigFragment : Fragment() {
                 } ?: viewModel.setState(FinalPlayersConfigViewState.Error)
             }
         } ?: viewModel.setState(FinalPlayersConfigViewState.Error)
+    }
+
+    private fun manageAdapterEvent(event: FinalPlayerConfigState) {
+        viewModel.updateFinalConfig(event.group)
     }
 
     override fun onDestroyView() {
