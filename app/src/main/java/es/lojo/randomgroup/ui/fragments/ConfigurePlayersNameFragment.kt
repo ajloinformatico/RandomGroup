@@ -16,6 +16,7 @@ import es.lojo.randomgroup.commons.*
 import es.lojo.randomgroup.databinding.FragmentConfigurePlayersNameBinding
 import es.lojo.randomgroup.ui.adapters.configureplayersname.ConfigurePlayersNameAdapter
 import es.lojo.randomgroup.ui.states.ConfigurePlayersNameGridViewState
+import es.lojo.randomgroup.ui.states.PlayerUpdate
 import es.lojo.randomgroup.ui.viewmodel.ConfigurePlayersNameViewModel
 
 
@@ -24,7 +25,7 @@ private const val CLASS_NAME = "ConfigurePlayersNameFragment"
 class ConfigurePlayersNameFragment : Fragment() {
 
     private var binding: FragmentConfigurePlayersNameBinding? = null
-    private val adapter: ConfigurePlayersNameAdapter = ConfigurePlayersNameAdapter()
+    private val adapter: ConfigurePlayersNameAdapter = ConfigurePlayersNameAdapter(::manageAdapterEvents)
     private val viewModel: ConfigurePlayersNameViewModel by viewModels()
     private val navController: NavController by lazy { findNavController() }
     private val safeArgs: ConfigurePlayersNameFragmentArgs by navArgs()
@@ -62,19 +63,6 @@ class ConfigurePlayersNameFragment : Fragment() {
 
         // Get all text and navigate to the next screen
         binding?.playButton?.setOnClickListener {
-            viewModel.clearFinalConfig()
-            (0 until adapter.itemCount).forEachIndexed { i, _ ->
-                val playerName = binding?.recycler?.getChildAt(i)
-                    ?.findViewById<EditText>(R.id.playerName)?.text.toString()
-                if (playerName.isBlank()) {
-                    // TODO ERROR ENUM CLASS AND SHOW ERROR
-                    CustomLog.log(CLASS_NAME, "falta un nombre")
-                    viewModel.clearFinalConfig()
-                    return@forEachIndexed
-                }
-                CustomLog.log(CLASS_NAME, "nombre añadido")
-                viewModel.addPlayerToFinalConfig(playerName)
-            }
             viewModel.continueClick()
         }
         // Hide keyboard
@@ -110,7 +98,6 @@ class ConfigurePlayersNameFragment : Fragment() {
                         args = bundle
                     )
                     viewModel.setState(ConfigurePlayersNameGridViewState.Unknown)
-
                 }
                 is ConfigurePlayersNameGridViewState.Unknown -> { /* no-op */
                 }
@@ -137,6 +124,10 @@ class ConfigurePlayersNameFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun manageAdapterEvents(state: PlayerUpdate) {
+        viewModel.updatePlayersConfig(state.name, state.position)
     }
 
     override fun onDestroy() {

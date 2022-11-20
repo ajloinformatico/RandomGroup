@@ -37,7 +37,11 @@
 
     <!--recycler cardView -->
     <style name="customCardView">
-        <item name="android:backgroundTint">@color/cardview_dark_background</item>
+        <item name="android:backgroundTint">@color/cardview_background</item>
+    </style>
+
+    <style name="customCardView.Clicked">
+        <item name="android:backgroundTint">@android:color/holo_green_light</item>
     </style>
 
     <style name="customCardViewContent">

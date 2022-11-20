@@ -30,9 +30,8 @@
         <item name="android:textColor">@color/black_gray</item>
     </style>
 
-    <!--recycler cardView -->
-    <style name="customCardView">
-        <item name="android:backgroundTint">@color/cardview_light_background</item>
+    <style name="customCardViewContent">
+        <item name="android:textColor">@color/black</item>
     </style>
 
 

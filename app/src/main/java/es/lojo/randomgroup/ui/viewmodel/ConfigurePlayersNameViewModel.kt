@@ -71,12 +71,9 @@ class ConfigurePlayersNameViewModel : ViewModel() {
         _finalConfig.value = emptyList()
     }
 
-    fun addPlayerToFinalConfig(playerName: String) {
-        val finalConfigCopy = _finalConfig.value.orEmpty().toMutableList()
-        finalConfigCopy.add(playerName)
-        _finalConfig.value = finalConfigCopy
-    }
-
+    /**
+     * Add players or get all players
+     */
     fun firstConfigOfPlayers() {
         val playersList = mutableListOf<PlayerModel>()
         if (_playersConfig.value?.players.isNullOrEmpty().not()) {
@@ -88,6 +85,7 @@ class ConfigurePlayersNameViewModel : ViewModel() {
                 playersList.add(PlayerModel("Player ${index + 1}", ""))
             }
         }
+        _finalConfig.value = playersList.orEmpty().map { it.name.orEmpty() }
         _playersConfig.postValue(
             ConfigureOfPlayersModel(
                 competitionName = _playersConfig.value?.competitionName.orEmpty(),
@@ -96,5 +94,11 @@ class ConfigurePlayersNameViewModel : ViewModel() {
                 players = playersList
             )
         )
+    }
+
+    fun updatePlayersConfig(playerName: String, position: Int) {
+        val finalConfigCopy = _finalConfig.value.orEmpty().toMutableList()
+        finalConfigCopy[position] = playerName
+        _finalConfig.value = finalConfigCopy
     }
 }

@@ -32,6 +32,9 @@ sealed class ConfigurePlayersNameGridViewState {
         ConfigurePlayersNameGridViewState()
 }
 
+// Class that is passed to the player holder to get name and position after edit it
+data class PlayerUpdate(val name: String, val position: Int)
+
 // TODO ERROR ENUM CLASS
 
 // endregion
@@ -43,4 +46,6 @@ sealed class FinalPlayersConfigViewState {
     object Error : FinalPlayersConfigViewState()
     object Unknown: FinalPlayersConfigViewState()
 }
+
+sealed class FinalPlayerConfigViewEvents
 // endregion FinalPlayers

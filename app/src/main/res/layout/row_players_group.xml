@@ -9,13 +9,14 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="parent"
         style="@style/customCardView"
         card_view:cardCornerRadius="8dp"
-        android:paddingHorizontal="@dimen/rowConfigurePlayersPadding"
-        >
+        android:paddingHorizontal="@dimen/rowConfigurePlayersPadding">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
