@@ -78,12 +78,17 @@
         <!--Show dialog to go to home or configure players or restart configuration-->
         <action
             android:id="@+id/action_fragmentFinalPlayersConfig_to_fragmentMain"
-            app:destination="@id/fragmentMain" />
+            app:destination="@id/fragmentMain"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            />
+
         <action
-            android:id="@+id/action_fragmentFinalPlayersConfig_to_fragmentConfigurePlayers"
-            app:destination="@id/fragmentConfigurePlayers" />
+            android:id="@+id/action_fragmentFinalPlayersConfig_to_fragmentFinalPlayersConfig"
+            app:destination="@+id/fragmentFinalPlayersConfig"/>
 
     </fragment>
-
 
 </navigation>

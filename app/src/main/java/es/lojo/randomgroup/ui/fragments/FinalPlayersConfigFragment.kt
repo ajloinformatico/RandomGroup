@@ -1,16 +1,21 @@
 package es.lojo.randomgroup.ui.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import es.lojo.randomgroup.R
 import es.lojo.randomgroup.commons.hide
+import es.lojo.randomgroup.commons.makeOneShot
 import es.lojo.randomgroup.commons.show
 import es.lojo.randomgroup.databinding.FragmentFinalPlayersConfigBinding
 import es.lojo.randomgroup.ui.adapters.finalplayersconfig.FinalPlayersConfigAdapter
@@ -47,9 +52,7 @@ class FinalPlayersConfigFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        safeArgs.players?.let {
-            viewModel.setFinalConfig(it)
-        }
+        restart()
         viewModel.viewState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is FinalPlayersConfigViewState.Loading -> {
@@ -61,10 +64,36 @@ class FinalPlayersConfigFragment : Fragment() {
                 is FinalPlayersConfigViewState.Error -> {
                     navController.popBackStack()
                 }
+                is FinalPlayersConfigViewState.ShouldShowContinueButton -> {
+                    binding?.playButton?.isVisible = state.show
+                }
+                is FinalPlayersConfigViewState.Finish -> {
+                    restart()
+                    val bundle = Bundle().apply {
+                        this.putSerializable(
+                            PLAYERS_BUNDLE_NAME,
+                            state.finalPlayersConfig
+                        )
+                    }
+                    navController.navigate(
+                        R.id.action_fragmentFinalPlayersConfig_to_fragmentFinalPlayersConfig,
+                        args = bundle
+                    )
+                    viewModel.setState(FinalPlayersConfigViewState.Unknown)
+                }
                 is FinalPlayersConfigViewState.Unknown -> {
                     // no-op
                 }
             }
+        }
+    }
+
+    /**
+     * Restart viewModel data
+     */
+    private fun restart() {
+        safeArgs.players?.let {
+            viewModel.setFinalConfigAtTheFirstTime(it)
         }
     }
 
@@ -76,8 +105,28 @@ class FinalPlayersConfigFragment : Fragment() {
                     it.submitList(finalConfig.groups)
                     viewModel.setState(FinalPlayersConfigViewState.Render)
                 } ?: viewModel.setState(FinalPlayersConfigViewState.Error)
+                if (finalConfig.groups.size == 1) {
+                    showWinner()
+                    applyCustomOnBackPressed()
+                }
             }
         } ?: viewModel.setState(FinalPlayersConfigViewState.Error)
+
+        binding?.playButton?.setOnClickListener {
+            viewModel.continueClicked()
+        }
+    }
+
+    private fun showWinner() {
+        with(Gravity.CENTER) {
+            binding?.competitionName?.gravity = this
+            binding?.groupWinner?.gravity = this
+        }
+        val previousTitle = binding?.competitionName?.text.toString()
+        binding?.competitionName?.text = resources.getString(R.string.finish_upper)
+        binding?.groupWinner?.visibility = View.VISIBLE
+        binding?.groupWinner?.text = resources.getString(R.string.winner_message, previousTitle)
+        binding?.konfettiView?.makeOneShot()
     }
 
     private fun manageAdapterEvent(event: FinalPlayerConfigState) {
@@ -87,5 +136,22 @@ class FinalPlayersConfigFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
+    }
+
+    /**
+     * Implement custom onBackPressed
+     */
+    private fun applyCustomOnBackPressed() {
+        requireActivity().onBackPressedDispatcher.addCallback {
+            AlertDialog.Builder(requireContext()).setTitle(R.string.close_game)
+                .setPositiveButton(R.string.yes) { _, _ -> activity?.finish() }
+                .setNegativeButton(R.string.re_run_game_plase) { _, _ ->
+                    navController.navigate(
+                        R.id.action_fragmentFinalPlayersConfig_to_fragmentMain,
+                    )
+                }
+                .create().show()
+            this.remove()
+        }
     }
 }

@@ -8,7 +8,7 @@ import es.lojo.randomgroup.data.models.ConfigurePlayersFinalModel
 sealed class ConfigurePlayersViewState {
     object Loading : ConfigurePlayersViewState()
     object Render : ConfigurePlayersViewState()
-    object Unknown: ConfigurePlayersViewState()
+    object Unknown : ConfigurePlayersViewState()
     data class Error(val error: ConfigurePlayersErrors) : ConfigurePlayersViewState()
     data class OpenButtonSheetPlayersName(val configuration: ConfigureOfPlayersModel) :
         ConfigurePlayersViewState()
@@ -28,7 +28,7 @@ sealed class ConfigurePlayersNameGridViewState {
     object Loading : ConfigurePlayersNameGridViewState()
     object Render : ConfigurePlayersNameGridViewState()
     object Error : ConfigurePlayersNameGridViewState()
-    object Unknown: ConfigurePlayersNameGridViewState()
+    object Unknown : ConfigurePlayersNameGridViewState()
     data class Finish(val finalPlayersConfig: ConfigurePlayersFinalModel) :
         ConfigurePlayersNameGridViewState()
 }
@@ -45,7 +45,13 @@ sealed class FinalPlayersConfigViewState {
     object Loading : FinalPlayersConfigViewState()
     object Render : FinalPlayersConfigViewState()
     object Error : FinalPlayersConfigViewState()
-    object Unknown: FinalPlayersConfigViewState()
+    object Unknown : FinalPlayersConfigViewState()
+    data class Finish(val finalPlayersConfig: ConfigurePlayersFinalModel) :
+        FinalPlayersConfigViewState()
+
+    data class ShouldShowContinueButton(
+        val show: Boolean = false
+    ) : FinalPlayersConfigViewState()
 }
 
 data class FinalPlayerConfigState(

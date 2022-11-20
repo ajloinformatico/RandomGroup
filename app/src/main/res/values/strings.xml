@@ -12,6 +12,9 @@
     <string name="playersConfigurations">Enter players configuration</string>
     <string name="enterPlayersName">Enter players name</string>
     <string name="see_more_at_infolojo_es">See more at <b>infolojo.es</b></string>
+    <string name="finish_upper">FINISH !!</string>
+    <string name="finish_lower">finish</string>
+    <string name="winner_message">The winner of %1$s is</string>
 
 
     <!-- inputs -->
@@ -28,5 +31,11 @@
 
     <!-- Banner action -->
     <string name="infolojo_complete_url">https://www.infolojo.es</string>
+
+    <!--Dialog-->
+    <string name="close_game">Close game ?</string>
+    <string name="yes">yes</string>
+    <string name="re_run_game_plase">I want to play again</string>
+
 
 </resources>

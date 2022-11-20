@@ -1,12 +1,10 @@
 package es.lojo.randomgroup.ui.activities
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
+import android.content.res.Configuration.UI_MODE_NIGHT_MASK
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.ActivityNavigator
 import es.lojo.randomgroup.R
 import es.lojo.randomgroup.commons.CustomLog
@@ -25,7 +23,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setTheme(R.style.NoActionBar)
         setContentView(binding?.root)
+        configureNavigationBottomBarView()
         manageWebViewBanner()
+    }
+
+    private fun configureNavigationBottomBarView() {
+        window.navigationBarColor = ContextCompat.getColor(
+            this,
+            if (resources.configuration.uiMode.and(UI_MODE_NIGHT_MASK) == UI_MODE_NIGHT_YES) {
+                R.color.white
+            } else {
+                R.color.black
+            }
+        )
     }
 
     private fun manageWebViewBanner() {

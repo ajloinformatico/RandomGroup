@@ -17,10 +17,9 @@ class FinalPlayersConfigHolder(
 
     fun bind(
         item: ConfigurePlayersFinalGroupsModel,
-        position: Int,
         event: (FinalPlayerConfigState) -> Unit
     ) {
-        val groupName = "Group ${position + 1}"
+        val groupName = "Group ${item.groupNumber.toString()}"
         binding.groupName.text = groupName
         binding.recycler.adapter = adapter
         adapter.submitList(item.playersName)
@@ -49,7 +48,6 @@ class FinalPlayersConfigHolder(
         binding.groupName.setOnClickListener {
             doOnClick(event, item)
         }
-//        binding.clickableArea.setOnClickListener { doOnClick(event, item) }
         binding.recycler.setOnClickListener { doOnClick(event, item) }
     }
 

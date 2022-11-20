@@ -21,8 +21,22 @@ class FinalPlayersConfigViewModel : ViewModel() {
     private val _finalConfig = MutableLiveData<ConfigurePlayersFinalModel>()
     val finalConfig: LiveData<ConfigurePlayersFinalModel> = _finalConfig
 
-    fun setFinalConfig(value: ConfigurePlayersFinalModel) {
-        _finalConfig.postValue(value)
+    fun setFinalConfigAtTheFirstTime(value: ConfigurePlayersFinalModel) {
+        _finalConfig.postValue(reset(value))
+    }
+
+    private fun reset(value: ConfigurePlayersFinalModel): ConfigurePlayersFinalModel {
+        val copyList = mutableListOf<ConfigurePlayersFinalGroupsModel>()
+        value.groups.map {
+            copyList.add(
+                ConfigurePlayersFinalGroupsModel(
+                    groupNumber = it.groupNumber,
+                    playersName = it.playersName,
+                    clicked = false
+                )
+            )
+        }
+        return ConfigurePlayersFinalModel(groups = copyList)
     }
 
     fun updateFinalConfig(group: ConfigurePlayersFinalGroupsModel) {
@@ -32,9 +46,34 @@ class FinalPlayersConfigViewModel : ViewModel() {
             if (item.isTheSameGroup(group)) getPosition = index
         }
         finalConfigCopy[getPosition] = group
-        _finalConfig.value = ConfigurePlayersFinalModel(
-            groups = finalConfigCopy
+
+        if (checkCanUpdateClicked().not() || !group.clicked) {
+            _finalConfig.value = ConfigurePlayersFinalModel(
+                groups = finalConfigCopy
+            )
+            checkToShowContinueButton()
+        }
+    }
+
+    private fun checkCanUpdateClicked(): Boolean {
+        val groupsClicked = _finalConfig.value?.groups.orEmpty().count { it.clicked }
+        return groupsClicked == _finalConfig.value?.groups.orEmpty().size / 2
+    }
+
+    private fun checkToShowContinueButton() {
+        _viewState.value = FinalPlayersConfigViewState.ShouldShowContinueButton(
+            checkCanUpdateClicked()
         )
+    }
+
+    fun continueClicked() {
+        if (checkCanUpdateClicked()) {
+            _viewState.value = FinalPlayersConfigViewState.Finish(
+                ConfigurePlayersFinalModel(
+                    groups = _finalConfig.value?.groups.orEmpty().filter { it.clicked }
+                )
+            )
+        }
     }
 
     init {
