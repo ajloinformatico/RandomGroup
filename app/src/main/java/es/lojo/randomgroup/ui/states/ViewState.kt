@@ -1,13 +1,14 @@
 package es.lojo.randomgroup.ui.states
 
 import es.lojo.randomgroup.data.models.ConfigureOfPlayersModel
+import es.lojo.randomgroup.data.models.ConfigurePlayersFinalGroupsModel
 import es.lojo.randomgroup.data.models.ConfigurePlayersFinalModel
 
 // region ConfigurePlayersViewState
 sealed class ConfigurePlayersViewState {
     object Loading : ConfigurePlayersViewState()
     object Render : ConfigurePlayersViewState()
-    object Unknown: ConfigurePlayersViewState()
+    object Unknown : ConfigurePlayersViewState()
     data class Error(val error: ConfigurePlayersErrors) : ConfigurePlayersViewState()
     data class OpenButtonSheetPlayersName(val configuration: ConfigureOfPlayersModel) :
         ConfigurePlayersViewState()
@@ -27,10 +28,13 @@ sealed class ConfigurePlayersNameGridViewState {
     object Loading : ConfigurePlayersNameGridViewState()
     object Render : ConfigurePlayersNameGridViewState()
     object Error : ConfigurePlayersNameGridViewState()
-    object Unknown: ConfigurePlayersNameGridViewState()
+    object Unknown : ConfigurePlayersNameGridViewState()
     data class Finish(val finalPlayersConfig: ConfigurePlayersFinalModel) :
         ConfigurePlayersNameGridViewState()
 }
+
+// Class that is passed to the player holder to get name and position after edit it
+data class PlayerUpdate(val name: String, val position: Int)
 
 // TODO ERROR ENUM CLASS
 
@@ -41,6 +45,17 @@ sealed class FinalPlayersConfigViewState {
     object Loading : FinalPlayersConfigViewState()
     object Render : FinalPlayersConfigViewState()
     object Error : FinalPlayersConfigViewState()
-    object Unknown: FinalPlayersConfigViewState()
+    object Unknown : FinalPlayersConfigViewState()
+    data class Finish(val finalPlayersConfig: ConfigurePlayersFinalModel) :
+        FinalPlayersConfigViewState()
+
+    data class ShouldShowContinueButton(
+        val show: Boolean = false
+    ) : FinalPlayersConfigViewState()
 }
+
+data class FinalPlayerConfigState(
+    val group: ConfigurePlayersFinalGroupsModel
+)
+
 // endregion FinalPlayers

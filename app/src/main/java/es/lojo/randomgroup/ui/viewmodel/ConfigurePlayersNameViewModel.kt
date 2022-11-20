@@ -9,8 +9,6 @@ import es.lojo.randomgroup.data.models.ConfigurePlayersFinalModel
 import es.lojo.randomgroup.data.models.PlayerModel
 import es.lojo.randomgroup.ui.states.ConfigurePlayersNameGridViewState
 
-private const val CLASS_NAME = "ConfigurePlayersNameViewModel"
-
 class ConfigurePlayersNameViewModel : ViewModel() {
 
     // view states
@@ -62,21 +60,21 @@ class ConfigurePlayersNameViewModel : ViewModel() {
                 )
             )
         } else {
-            // show error after create errors class
+            // TODO show error after create errors class
+            _viewState.postValue(
+                ConfigurePlayersNameGridViewState.Finish(
+                    ConfigurePlayersFinalModel(
+                        groupsPrepared
+                    )
+                )
+            )
         }
 
     }
 
-    fun clearFinalConfig() {
-        _finalConfig.value = emptyList()
-    }
-
-    fun addPlayerToFinalConfig(playerName: String) {
-        val finalConfigCopy = _finalConfig.value.orEmpty().toMutableList()
-        finalConfigCopy.add(playerName)
-        _finalConfig.value = finalConfigCopy
-    }
-
+    /**
+     * Add players or get all players
+     */
     fun firstConfigOfPlayers() {
         val playersList = mutableListOf<PlayerModel>()
         if (_playersConfig.value?.players.isNullOrEmpty().not()) {
@@ -88,6 +86,7 @@ class ConfigurePlayersNameViewModel : ViewModel() {
                 playersList.add(PlayerModel("Player ${index + 1}", ""))
             }
         }
+        _finalConfig.value = playersList.map { it.name }
         _playersConfig.postValue(
             ConfigureOfPlayersModel(
                 competitionName = _playersConfig.value?.competitionName.orEmpty(),
@@ -96,5 +95,11 @@ class ConfigurePlayersNameViewModel : ViewModel() {
                 players = playersList
             )
         )
+    }
+
+    fun updatePlayersConfig(playerName: String, position: Int) {
+        val finalConfigCopy = _finalConfig.value.orEmpty().toMutableList()
+        finalConfigCopy[position] = playerName
+        _finalConfig.value = finalConfigCopy
     }
 }

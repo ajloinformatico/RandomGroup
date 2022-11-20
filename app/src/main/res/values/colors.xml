@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="black_gray">#252525</color>
+    <color name="cardview_background">#FF424242</color>
 </resources>
