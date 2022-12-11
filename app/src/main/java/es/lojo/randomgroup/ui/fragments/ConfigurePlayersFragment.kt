@@ -52,6 +52,7 @@ class ConfigurePlayersFragment : Fragment() {
                     binding?.competitionName?.text.toString()
                 )
             }
+
             override fun afterTextChanged(p0: Editable?) {}
         })
 
@@ -63,6 +64,7 @@ class ConfigurePlayersFragment : Fragment() {
                     binding?.numberOfGroupsInput?.text.toString().toIntCustom()
                 )
             }
+
             override fun afterTextChanged(p0: Editable?) {}
         })
 
@@ -74,6 +76,7 @@ class ConfigurePlayersFragment : Fragment() {
                     binding?.numberOfPlayersInput?.text.toString().toIntCustom()
                 )
             }
+
             override fun afterTextChanged(p0: Editable?) {}
         })
 
@@ -96,11 +99,11 @@ class ConfigurePlayersFragment : Fragment() {
                     )
                     hideVirtualKeyBoard(
                         appCompatActivity,
-                        bindView.competitionName
+                        bindView.numberOfPlayersInput
                     )
                     hideVirtualKeyBoard(
                         appCompatActivity,
-                        bindView.competitionName
+                        bindView.numberOfGroupsInput
                     )
                 }
             }
@@ -130,8 +133,10 @@ class ConfigurePlayersFragment : Fragment() {
                     binding?.progressBar?.hide()
                 }
 
+                // Note: if it is an error hidde keyboard and show error
                 is ConfigurePlayersViewState.Error -> {
                     binding?.root?.let { rootView ->
+                        hideKeyboard()
                         SnackBarMaker.showError(
                             rootView,
                             state.error.message
@@ -153,6 +158,8 @@ class ConfigurePlayersFragment : Fragment() {
                     )
                     viewModel.setState(ConfigurePlayersViewState.Unknown)
                 }
+
+                is ConfigurePlayersViewState.Unknown -> { /* no-op */ }
             }
         }
     }

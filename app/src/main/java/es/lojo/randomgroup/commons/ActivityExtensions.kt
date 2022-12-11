@@ -5,6 +5,9 @@ import android.content.Intent
 import android.net.Uri
 import es.lojo.randomgroup.R
 
+/**
+ * Launch intent to infolojo.es
+ */
 fun Activity.manageWebViewInfolojo() {
     startActivity(
         Intent(Intent.ACTION_VIEW).setData(
