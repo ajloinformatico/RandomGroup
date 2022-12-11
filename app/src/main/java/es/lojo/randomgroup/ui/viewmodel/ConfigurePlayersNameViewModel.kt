@@ -3,10 +3,12 @@ package es.lojo.randomgroup.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import es.lojo.randomgroup.commons.calculatePlayersPerGroup
 import es.lojo.randomgroup.data.models.ConfigureOfPlayersModel
 import es.lojo.randomgroup.data.models.ConfigurePlayersFinalGroupsModel
 import es.lojo.randomgroup.data.models.ConfigurePlayersFinalModel
 import es.lojo.randomgroup.data.models.PlayerModel
+import es.lojo.randomgroup.ui.states.ConfigurePlayersNameErrors
 import es.lojo.randomgroup.ui.states.ConfigurePlayersNameGridViewState
 
 class ConfigurePlayersNameViewModel : ViewModel() {
@@ -38,16 +40,18 @@ class ConfigurePlayersNameViewModel : ViewModel() {
      * Method collect before go to title screen
      */
     fun continueClick() {
-        val playersForOneGroup =
-            (_playersConfig.value?.numberOfPlayers ?: 0) / (_playersConfig.value?.numberOfGroups
-                ?: 0)
+        val playersForOneGroup: Int = calculatePlayersPerGroup(
+            numberOfPlayers = _playersConfig.value?.numberOfPlayers ?: 0,
+            numberOfGroups = _playersConfig.value?.numberOfGroups ?: 0
+        )
+
         val groupsPrepared = mutableListOf<ConfigurePlayersFinalGroupsModel>()
         _finalConfig.value.orEmpty().shuffled().chunked(playersForOneGroup)
             .forEachIndexed { groupIndex, players ->
                 groupsPrepared.add(
                     ConfigurePlayersFinalGroupsModel(
-                        groupIndex + 1,
-                        players
+                        groupNumber = groupIndex + 1,
+                        playersName = players
                     )
                 )
             }
@@ -55,17 +59,15 @@ class ConfigurePlayersNameViewModel : ViewModel() {
             _viewState.postValue(
                 ConfigurePlayersNameGridViewState.Finish(
                     ConfigurePlayersFinalModel(
-                        groupsPrepared
+                        competitionName = _playersConfig.value?.competitionName.orEmpty(),
+                        groups = groupsPrepared
                     )
                 )
             )
         } else {
-            // TODO show error after create errors class
             _viewState.postValue(
-                ConfigurePlayersNameGridViewState.Finish(
-                    ConfigurePlayersFinalModel(
-                        groupsPrepared
-                    )
+                ConfigurePlayersNameGridViewState.Error(
+                    ConfigurePlayersNameErrors.UNKNOWN
                 )
             )
         }
