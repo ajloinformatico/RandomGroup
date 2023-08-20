@@ -38,7 +38,10 @@ class FinalPlayersConfigViewModel : ViewModel() {
                 )
             )
         }
-        return ConfigurePlayersFinalModel(groups = copyList)
+        return ConfigurePlayersFinalModel(
+            competitionName = value.competitionName,
+            groups = copyList
+        )
     }
 
     fun updateFinalConfig(group: ConfigurePlayersFinalGroupsModel) {
@@ -51,6 +54,7 @@ class FinalPlayersConfigViewModel : ViewModel() {
 
         if (checkCanUpdateClicked().not() || !group.clicked) {
             _finalConfig.value = ConfigurePlayersFinalModel(
+                competitionName = _finalConfig.value?.competitionName.orEmpty(),
                 groups = finalConfigCopy
             )
             checkToShowContinueButton()
@@ -79,6 +83,7 @@ class FinalPlayersConfigViewModel : ViewModel() {
         if (checkCanUpdateClicked()) {
             _viewState.value = FinalPlayersConfigViewState.Finish(
                 ConfigurePlayersFinalModel(
+                    competitionName = _finalConfig.value?.competitionName.orEmpty(),
                     groups = _finalConfig.value?.groups.orEmpty().filter { it.clicked }
                 )
             )

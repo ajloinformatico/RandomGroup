@@ -27,10 +27,14 @@ enum class ConfigurePlayersErrors(val message: String) {
 sealed class ConfigurePlayersNameGridViewState {
     object Loading : ConfigurePlayersNameGridViewState()
     object Render : ConfigurePlayersNameGridViewState()
-    object Error : ConfigurePlayersNameGridViewState()
+    data class Error(val error: ConfigurePlayersNameErrors) : ConfigurePlayersNameGridViewState()
     object Unknown : ConfigurePlayersNameGridViewState()
     data class Finish(val finalPlayersConfig: ConfigurePlayersFinalModel) :
         ConfigurePlayersNameGridViewState()
+}
+
+enum class ConfigurePlayersNameErrors(val message: String) {
+    UNKNOWN("Please check all your inputs")
 }
 
 // Class that is passed to the player holder to get name and position after edit it

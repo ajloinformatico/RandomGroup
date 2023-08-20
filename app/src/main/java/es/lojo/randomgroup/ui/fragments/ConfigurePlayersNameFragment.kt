@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,6 +14,7 @@ import es.lojo.randomgroup.R
 import es.lojo.randomgroup.commons.*
 import es.lojo.randomgroup.databinding.FragmentConfigurePlayersNameBinding
 import es.lojo.randomgroup.ui.adapters.configureplayersname.ConfigurePlayersNameAdapter
+import es.lojo.randomgroup.ui.states.ConfigurePlayersNameErrors
 import es.lojo.randomgroup.ui.states.ConfigurePlayersNameGridViewState
 import es.lojo.randomgroup.ui.states.PlayerUpdate
 import es.lojo.randomgroup.ui.viewmodel.ConfigurePlayersNameViewModel
@@ -25,7 +25,8 @@ private const val CLASS_NAME = "ConfigurePlayersNameFragment"
 class ConfigurePlayersNameFragment : Fragment() {
 
     private var binding: FragmentConfigurePlayersNameBinding? = null
-    private val adapter: ConfigurePlayersNameAdapter = ConfigurePlayersNameAdapter(::manageAdapterEvents)
+    private val adapter: ConfigurePlayersNameAdapter =
+        ConfigurePlayersNameAdapter(::manageAdapterEvents)
     private val viewModel: ConfigurePlayersNameViewModel by viewModels()
     private val navController: NavController by lazy { findNavController() }
     private val safeArgs: ConfigurePlayersNameFragmentArgs by navArgs()
@@ -51,15 +52,30 @@ class ConfigurePlayersNameFragment : Fragment() {
     }
 
     private fun initViews() {
+
         binding?.recycler?.apply {
             adapter = this@ConfigurePlayersNameFragment.adapter
             viewModel.playersConfig.observe(viewLifecycleOwner) { playersConfiguration ->
+                // Note: Update competition name
+                playersConfiguration.competitionName.takeIf { it.isNotEmpty() }?.let {
+                    binding?.competitionName?.text = it
+                }
+
+                // Note: Update recyclerView
                 (adapter as? ConfigurePlayersNameAdapter)?.let {
                     it.submitList(playersConfiguration.players)
                     viewModel.setState(ConfigurePlayersNameGridViewState.Render)
-                } ?: viewModel.setState(ConfigurePlayersNameGridViewState.Error)
+                } ?: viewModel.setState(
+                    ConfigurePlayersNameGridViewState.Error(
+                        ConfigurePlayersNameErrors.UNKNOWN
+                    )
+                )
             }
-        } ?: viewModel.setState(ConfigurePlayersNameGridViewState.Error)
+        } ?: viewModel.setState(
+            ConfigurePlayersNameGridViewState.Error(
+                ConfigurePlayersNameErrors.UNKNOWN
+            )
+        )
 
         // Get all text and navigate to the next screen
         binding?.playButton?.setOnClickListener {
@@ -83,7 +99,13 @@ class ConfigurePlayersNameFragment : Fragment() {
                     binding?.progressbar?.hide()
                 }
                 is ConfigurePlayersNameGridViewState.Error -> {
-                    navController.popBackStack()
+                    binding?.root?.let { rootView ->
+                        hideKeyboard()
+                        SnackBarMaker.showError(
+                            rootView,
+                            state.error.message
+                        )
+                    }
                 }
                 is ConfigurePlayersNameGridViewState.Finish -> {
                     // Load players select

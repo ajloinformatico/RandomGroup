@@ -8,6 +8,9 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import es.lojo.randomgroup.R
 
+/**
+ * Launch intent to infolojo.es
+ */
 fun Activity.manageWebViewInfolojo() {
     startActivity(
         Intent(Intent.ACTION_VIEW).setData(

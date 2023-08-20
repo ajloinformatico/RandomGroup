@@ -57,6 +57,7 @@ class ConfigurePlayersFragment : Fragment() {
                     binding?.competitionName?.text.toString()
                 )
             }
+
             override fun afterTextChanged(p0: Editable?) {}
         })
 
@@ -68,6 +69,7 @@ class ConfigurePlayersFragment : Fragment() {
                     binding?.numberOfGroupsInput?.text.toString().toIntOrElse()
                 )
             }
+
             override fun afterTextChanged(p0: Editable?) {}
         })
 
@@ -79,6 +81,7 @@ class ConfigurePlayersFragment : Fragment() {
                     binding?.numberOfPlayersInput?.text.toString().toIntOrElse()
                 )
             }
+
             override fun afterTextChanged(p0: Editable?) {}
         })
 
@@ -101,8 +104,8 @@ class ConfigurePlayersFragment : Fragment() {
                 bindView.root.setOnClickListener {
                     with(appCompatActivity) {
                         hideVirtualKeyBoard(bindView.competitionName)
-                        hideVirtualKeyBoard(bindView.competitionName)
-                        hideVirtualKeyBoard(bindView.competitionName)
+                        hideVirtualKeyBoard(bindView.numberOfPlayersInput)
+                        hideVirtualKeyBoard(bindView.numberOfGroupsInput)
                     }
                 }
             }
@@ -132,8 +135,10 @@ class ConfigurePlayersFragment : Fragment() {
                     binding?.progressBar?.hide()
                 }
 
+                // Note: if it is an error hidde keyboard and show error
                 is ConfigurePlayersViewState.Error -> {
                     binding?.root?.let { rootView ->
+                        hideKeyboard()
                         SnackBarMaker.showError(
                             rootView,
                             state.error.message
@@ -155,6 +160,8 @@ class ConfigurePlayersFragment : Fragment() {
                     )
                     viewModel.setState(ConfigurePlayersViewState.Unknown)
                 }
+
+                is ConfigurePlayersViewState.Unknown -> { /* no-op */ }
             }
         }
     }

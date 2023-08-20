@@ -6,7 +6,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.addCallback
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -31,6 +31,22 @@ class FinalPlayersConfigFragment : Fragment() {
     private var binding: FragmentFinalPlayersConfigBinding? = null
     private val navController: NavController by lazy { findNavController() }
     private val safeArgs: FinalPlayersConfigFragmentArgs by navArgs()
+
+    // Note: custom callback onBackPressed
+    private val callBackOnBackPressed: OnBackPressedCallback =
+        object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                AlertDialog.Builder(requireContext()).setTitle(R.string.close_game)
+                    .setPositiveButton(R.string.yes) { _, _ -> activity?.finish() }
+                    .setNegativeButton(R.string.re_run_game_plase) { _, _ ->
+                        navController.navigate(
+                            R.id.action_fragmentFinalPlayersConfig_to_fragmentMain,
+                        )
+                    }
+                    .create().show()
+                this.remove()
+            }
+        }
 
 
     override fun onCreateView(
@@ -105,13 +121,18 @@ class FinalPlayersConfigFragment : Fragment() {
         binding?.recycler?.apply {
             adapter = this@FinalPlayersConfigFragment.adapter
             viewModel.finalConfig.observe(viewLifecycleOwner) { finalConfig ->
+                // Note: update competition name
+                finalConfig.competitionName.takeIf { it.isNotEmpty() }?.let {
+                    binding?.competitionName?.text = it
+                }
+                // Note: Update recycler
                 (adapter as? FinalPlayersConfigAdapter)?.let {
                     it.submitList(finalConfig.groups)
                     viewModel.setState(FinalPlayersConfigViewState.Render)
                 } ?: viewModel.setState(FinalPlayersConfigViewState.Error)
                 if (finalConfig.groups.size == 1) {
                     showWinner()
-                    applyCustomOnBackPressed()
+                    requireActivity().onBackPressedDispatcher.addCallback(callBackOnBackPressed)
                 }
             }
         } ?: viewModel.setState(FinalPlayersConfigViewState.Error)
