@@ -36,6 +36,7 @@
     <string name="close_game">Close game ?</string>
     <string name="yes">yes</string>
     <string name="re_run_game_plase">I want to play again</string>
+    <string name="no">no</string>
 
 
 </resources>

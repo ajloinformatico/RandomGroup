@@ -52,10 +52,13 @@ sealed class FinalPlayersConfigViewState {
     data class ShouldShowContinueButton(
         val show: Boolean = false
     ) : FinalPlayersConfigViewState()
+
+    data class CustomError(
+        val message: String
+    ) : FinalPlayersConfigViewState()
 }
 
 data class FinalPlayerConfigState(
     val group: ConfigurePlayersFinalGroupsModel
 )
-
 // endregion FinalPlayers

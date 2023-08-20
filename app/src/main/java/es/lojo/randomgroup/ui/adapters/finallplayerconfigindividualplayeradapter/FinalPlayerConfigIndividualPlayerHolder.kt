@@ -1,6 +1,7 @@
 package es.lojo.randomgroup.ui.adapters.finallplayerconfigindividualplayeradapter
 
 import androidx.recyclerview.widget.RecyclerView
+import es.lojo.randomgroup.commons.toCapitalize
 import es.lojo.randomgroup.databinding.RowPlayersNameBinding
 import java.util.*
 
@@ -11,7 +12,7 @@ class FinalPlayerConfigIndividualPlayerHolder(
         item: String,
         position: Int
     ) {
-        val playerName = "${position + 1} ${item.capitalize(Locale.ROOT)}"
+        val playerName = "${position + 1} ${item.toCapitalize()}"
         binding.playerName.text = playerName
     }
 }

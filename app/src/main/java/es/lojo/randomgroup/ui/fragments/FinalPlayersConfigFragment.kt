@@ -14,6 +14,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import es.lojo.randomgroup.R
+import es.lojo.randomgroup.commons.SnackBarMaker
 import es.lojo.randomgroup.commons.hide
 import es.lojo.randomgroup.commons.makeOneShot
 import es.lojo.randomgroup.commons.show
@@ -81,6 +82,9 @@ class FinalPlayersConfigFragment : Fragment() {
                     )
                     viewModel.setState(FinalPlayersConfigViewState.Unknown)
                 }
+                is FinalPlayersConfigViewState.CustomError -> {
+                    SnackBarMaker.showError(binding?.root, state.message)
+                }
                 is FinalPlayersConfigViewState.Unknown -> {
                     // no-op
                 }
@@ -143,14 +147,7 @@ class FinalPlayersConfigFragment : Fragment() {
      */
     private fun applyCustomOnBackPressed() {
         requireActivity().onBackPressedDispatcher.addCallback {
-            AlertDialog.Builder(requireContext()).setTitle(R.string.close_game)
-                .setPositiveButton(R.string.yes) { _, _ -> activity?.finish() }
-                .setNegativeButton(R.string.re_run_game_plase) { _, _ ->
-                    navController.navigate(
-                        R.id.action_fragmentFinalPlayersConfig_to_fragmentMain,
-                    )
-                }
-                .create().show()
+            navController.navigate( R.id.action_fragmentFinalPlayersConfig_to_fragmentMain,)
             this.remove()
         }
     }

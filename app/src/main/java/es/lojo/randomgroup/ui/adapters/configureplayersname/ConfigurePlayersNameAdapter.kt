@@ -3,16 +3,15 @@ package es.lojo.randomgroup.ui.adapters.configureplayersname
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import es.lojo.randomgroup.data.models.PlayerModel
 import es.lojo.randomgroup.databinding.RowConfigurePlayersNameBinding
 import es.lojo.randomgroup.ui.states.PlayerUpdate
 
 class ConfigurePlayersNameAdapter(
     private val event: (PlayerUpdate) -> Unit
-) : ListAdapter<PlayerModel, RecyclerView.ViewHolder>(ConfigurePlayersNameAdapterDiffUtil) {
+) : ListAdapter<PlayerModel, ConfigurePlayersNameHolder>(ConfigurePlayersNameAdapterDiffUtil()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConfigurePlayersNameHolder =
         ConfigurePlayersNameHolder(
             RowConfigurePlayersNameBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -21,8 +20,8 @@ class ConfigurePlayersNameAdapter(
             )
         )
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as? ConfigurePlayersNameHolder?)?.bind(
+    override fun onBindViewHolder(holder: ConfigurePlayersNameHolder, position: Int) {
+        holder.bind(
             item = getItem(position),
             position = position,
             event = event

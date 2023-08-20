@@ -32,13 +32,22 @@
             android:defaultValue="@null"
             app:argType="es.lojo.randomgroup.data.models.ConfigureOfPlayersModel"
             app:nullable="true" />
+
         <action
             android:id="@+id/action_fragmentConfigurePlayers_to_fragmentConfigurePlayersName"
             app:destination="@id/fragmentConfigurePlayersName"
-            app:enterAnim="@anim/slide_bottom_up"
-            app:exitAnim="@anim/slide_bottom_down"
-            app:popEnterAnim="@anim/slide_bottom_up"
-            app:popExitAnim="@anim/slide_bottom_down" />
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"  />
+<!--        <action-->
+<!--            android:id="@+id/action_fragmentConfigurePlayers_to_fragmentConfigurePlayersName"-->
+<!--            app:destination="@id/fragmentConfigurePlayersName"-->
+<!--            app:enterAnim="@anim/slide_bottom_up"-->
+<!--            app:exitAnim="@anim/slide_bottom_down"-->
+<!--            app:popEnterAnim="@anim/slide_bottom_up"-->
+<!--            app:popExitAnim="@anim/slide_bottom_down" />-->
+
     </fragment>
 
     <fragment

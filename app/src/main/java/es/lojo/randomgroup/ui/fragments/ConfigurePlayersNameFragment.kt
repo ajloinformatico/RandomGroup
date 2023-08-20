@@ -114,13 +114,9 @@ class ConfigurePlayersNameFragment : Fragment() {
                 bindView.root.setOnClickListener {
                     (0 until adapter.itemCount).forEachIndexed { i, _ ->
                         binding?.recycler?.getChildAt(i)?.apply {
-                            hideVirtualKeyBoard(
-                                appCompatActivity,
-                                this.findViewById(R.id.playerName)
-                            )
+                            appCompatActivity.hideVirtualKeyBoard(this.findViewById(R.id.playerName))
                         }
                     }
-
                 }
             }
         }

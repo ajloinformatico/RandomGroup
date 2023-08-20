@@ -8,6 +8,8 @@ import es.lojo.randomgroup.data.models.ConfigurePlayersFinalModel
 import es.lojo.randomgroup.data.models.isTheSameGroup
 import es.lojo.randomgroup.ui.states.FinalPlayersConfigViewState
 
+
+private const val ALL_WINNER_GROUPS_ARE_SELECTED = "All winner groups are selected"
 class FinalPlayersConfigViewModel : ViewModel() {
 
     // view states
@@ -52,6 +54,8 @@ class FinalPlayersConfigViewModel : ViewModel() {
                 groups = finalConfigCopy
             )
             checkToShowContinueButton()
+        } else {
+            showClickError()
         }
     }
 
@@ -64,6 +68,11 @@ class FinalPlayersConfigViewModel : ViewModel() {
         _viewState.value = FinalPlayersConfigViewState.ShouldShowContinueButton(
             checkCanUpdateClicked()
         )
+    }
+
+    /** Show an error that indicate all possible groups are clicked*/
+    private fun showClickError() {
+        _viewState.value = FinalPlayersConfigViewState.CustomError(ALL_WINNER_GROUPS_ARE_SELECTED)
     }
 
     fun continueClicked() {

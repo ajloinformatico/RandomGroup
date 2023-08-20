@@ -8,10 +8,12 @@ object SnackBarMaker {
     /**
      * Show error using simple custom toast
      */
-    fun showError(view: View, text: String, timeDuration: Int = Snackbar.LENGTH_SHORT) =
+    fun showError(view: View?, text: String, timeDuration: Int = Snackbar.LENGTH_SHORT) {
+        view ?: return
         Snackbar.make(view, text, timeDuration)
             .setBackgroundTint(Color.RED)
             .setTextColor(Color.WHITE).show()
+    }
 
     /**
      * Show positive message message using simple custom toast
