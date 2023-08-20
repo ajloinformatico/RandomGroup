@@ -12,7 +12,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import es.lojo.randomgroup.R
-import es.lojo.randomgroup.commons.*
+import es.lojo.randomgroup.commons.CustomLog
+import es.lojo.randomgroup.commons.SnackBarMaker
+import es.lojo.randomgroup.commons.hide
+import es.lojo.randomgroup.commons.hideVirtualKeyBoard
+import es.lojo.randomgroup.commons.show
+import es.lojo.randomgroup.commons.toIntOrElse
 import es.lojo.randomgroup.databinding.FragmentConfigurePlayersBinding
 import es.lojo.randomgroup.ui.states.ConfigurePlayersViewState
 import es.lojo.randomgroup.ui.viewmodel.ConfigurePlayersViewModel
@@ -60,7 +65,7 @@ class ConfigurePlayersFragment : Fragment() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 viewModel.setNumberOfGroups(
-                    binding?.numberOfGroupsInput?.text.toString().toIntCustom()
+                    binding?.numberOfGroupsInput?.text.toString().toIntOrElse()
                 )
             }
             override fun afterTextChanged(p0: Editable?) {}
@@ -71,15 +76,19 @@ class ConfigurePlayersFragment : Fragment() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 viewModel.setNumberOfPlayers(
-                    binding?.numberOfPlayersInput?.text.toString().toIntCustom()
+                    binding?.numberOfPlayersInput?.text.toString().toIntOrElse()
                 )
             }
             override fun afterTextChanged(p0: Editable?) {}
         })
 
         viewModel.setState(ConfigurePlayersViewState.Render)
-        binding?.continueBottom?.setOnClickListener {
-            viewModel.checkToContinue()
+        binding?.apply {
+            continueBottom.setOnClickListener {
+                with(competitionName) {
+                    viewModel.checkToContinue()
+                }
+            }
         }
     }
 
@@ -90,18 +99,11 @@ class ConfigurePlayersFragment : Fragment() {
         binding?.let { bindView ->
             (requireActivity() as? AppCompatActivity)?.let { appCompatActivity ->
                 bindView.root.setOnClickListener {
-                    hideVirtualKeyBoard(
-                        appCompatActivity,
-                        bindView.competitionName
-                    )
-                    hideVirtualKeyBoard(
-                        appCompatActivity,
-                        bindView.competitionName
-                    )
-                    hideVirtualKeyBoard(
-                        appCompatActivity,
-                        bindView.competitionName
-                    )
+                    with(appCompatActivity) {
+                        hideVirtualKeyBoard(bindView.competitionName)
+                        hideVirtualKeyBoard(bindView.competitionName)
+                        hideVirtualKeyBoard(bindView.competitionName)
+                    }
                 }
             }
         }
@@ -113,11 +115,11 @@ class ConfigurePlayersFragment : Fragment() {
         )
 
         viewModel.setNumberOfGroups(
-            binding?.numberOfGroupsInput?.text.toString().toIntCustom()
+            binding?.numberOfGroupsInput?.text.toString().toIntOrElse()
         )
 
         viewModel.setNumberOfPlayers(
-            binding?.numberOfPlayersInput?.text.toString().toIntCustom()
+            binding?.numberOfPlayersInput?.text.toString().toIntOrElse()
         )
 
         viewModel.viewState.observe(viewLifecycleOwner) { state ->

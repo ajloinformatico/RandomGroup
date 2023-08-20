@@ -3,10 +3,12 @@ package es.lojo.randomgroup.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import es.lojo.randomgroup.commons.toIntCustom
+import es.lojo.randomgroup.commons.toIntOrElse
 import es.lojo.randomgroup.data.models.ConfigureOfPlayersModel
 import es.lojo.randomgroup.ui.states.ConfigurePlayersErrors
 import es.lojo.randomgroup.ui.states.ConfigurePlayersViewState
+
+private const val RANDOM_CHAMPIONS = "Random Champions"
 
 class ConfigurePlayersViewModel : ViewModel() {
 
@@ -43,30 +45,25 @@ class ConfigurePlayersViewModel : ViewModel() {
 
     private fun getConfigurationsPlayer(): ConfigureOfPlayersModel =
         ConfigureOfPlayersModel(
-            competitionName = _competitionName.value.orEmpty(),
+            competitionName = _competitionName.value.orEmpty().takeIf { it.isNotEmpty() } ?: RANDOM_CHAMPIONS,
             numberOfPlayers = _numberOfPlayers.value ?: 1,
             numberOfGroups = _numberOfGroups.value ?: 1,
             players = emptyList()
         )
 
+    /**
+     * Check all input before continue
+     */
     fun checkToContinue() {
         when {
-            _competitionName.value.isNullOrBlank() &&
-                    _numberOfPlayers.value.toString().toIntCustom() == 0 -> {
-                _viewState.postValue(ConfigurePlayersViewState.Error(ConfigurePlayersErrors.UNKNOWN))
-
-            }
-            _competitionName.value.isNullOrBlank() ->
-                _viewState.postValue(ConfigurePlayersViewState.Error(ConfigurePlayersErrors.COMPETITION_NAME))
-
-            _numberOfPlayers.value.toString().toIntCustom() < 0 ->
+            _numberOfPlayers.value.toString().toIntOrElse() < 0 ->
                 _viewState.postValue(ConfigurePlayersViewState.Error(ConfigurePlayersErrors.NUMBER_OF_PLAYERS))
 
-            _numberOfPlayers.value.toString().toIntCustom() < 1 ->
+            _numberOfPlayers.value.toString().toIntOrElse() < 1 ->
                 _viewState.postValue(ConfigurePlayersViewState.Error(ConfigurePlayersErrors.NUMBER_OF_PLAYERS_MINUS_THAN_1))
 
-            _numberOfGroups.value.toString().toIntCustom() > _numberOfPlayers.value.toString()
-                .toIntCustom() ->
+            _numberOfGroups.value.toString().toIntOrElse() > _numberOfPlayers.value.toString()
+                .toIntOrElse() ->
                 _viewState.postValue(ConfigurePlayersViewState.Error(ConfigurePlayersErrors.NUMBER_OF_GROUPS_MORE_THAN_PLAYERS))
 
             else -> _viewState.postValue(

@@ -1,10 +1,10 @@
 package es.lojo.randomgroup.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import es.lojo.randomgroup.R
@@ -41,7 +41,6 @@ class MainFragment : Fragment() {
                 null,
             )
         }
-
     }
 
     override fun onDestroyView() {
