@@ -28,7 +28,6 @@ class MainFragment : Fragment() {
                     .setPositiveButton(R.string.yes) { _, _ -> activity?.finish() }
                     .setNegativeButton("no please") { _, _ -> /* no-op */ }
                     .create().show()
-                this.remove()
             }
         }
 
