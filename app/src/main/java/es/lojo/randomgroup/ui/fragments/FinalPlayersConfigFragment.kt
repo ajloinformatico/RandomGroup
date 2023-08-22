@@ -14,6 +14,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import es.lojo.randomgroup.R
+import es.lojo.randomgroup.commons.SnackBarMaker
 import es.lojo.randomgroup.commons.hide
 import es.lojo.randomgroup.commons.makeOneShot
 import es.lojo.randomgroup.commons.show
@@ -35,18 +36,12 @@ class FinalPlayersConfigFragment : Fragment() {
     private val callBackOnBackPressed: OnBackPressedCallback =
         object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                AlertDialog.Builder(requireContext()).setTitle(R.string.close_game)
-                    .setPositiveButton(R.string.yes) { _, _ -> activity?.finish() }
-                    .setNegativeButton(R.string.re_run_game_plase) { _, _ ->
-                        navController.navigate(
-                            R.id.action_fragmentFinalPlayersConfig_to_fragmentMain,
-                        )
-                    }
-                    .create().show()
+                navController.navigate(
+                    R.id.action_fragmentFinalPlayersConfig_to_fragmentMain,
+                )
                 this.remove()
             }
         }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,15 +69,19 @@ class FinalPlayersConfigFragment : Fragment() {
                 is FinalPlayersConfigViewState.Loading -> {
                     binding?.progressbar?.show()
                 }
+
                 is FinalPlayersConfigViewState.Render -> {
                     binding?.progressbar?.hide()
                 }
+
                 is FinalPlayersConfigViewState.Error -> {
                     navController.popBackStack()
                 }
+
                 is FinalPlayersConfigViewState.ShouldShowContinueButton -> {
                     binding?.playButton?.isVisible = state.show
                 }
+
                 is FinalPlayersConfigViewState.Finish -> {
                     restart()
                     val bundle = Bundle().apply {
@@ -97,6 +96,11 @@ class FinalPlayersConfigFragment : Fragment() {
                     )
                     viewModel.setState(FinalPlayersConfigViewState.Unknown)
                 }
+
+                is FinalPlayersConfigViewState.CustomError -> {
+                    SnackBarMaker.showError(binding?.root, state.message)
+                }
+
                 is FinalPlayersConfigViewState.Unknown -> {
                     // no-op
                 }
@@ -128,7 +132,9 @@ class FinalPlayersConfigFragment : Fragment() {
                 } ?: viewModel.setState(FinalPlayersConfigViewState.Error)
                 if (finalConfig.groups.size == 1) {
                     showWinner()
-                    requireActivity().onBackPressedDispatcher.addCallback(callBackOnBackPressed)
+                    requireActivity().onBackPressedDispatcher.addCallback(
+                        callBackOnBackPressed
+                    )
                 }
             }
         } ?: viewModel.setState(FinalPlayersConfigViewState.Error)
@@ -146,7 +152,8 @@ class FinalPlayersConfigFragment : Fragment() {
         val previousTitle = binding?.competitionName?.text.toString()
         binding?.competitionName?.text = resources.getString(R.string.finish_upper)
         binding?.groupWinner?.visibility = View.VISIBLE
-        binding?.groupWinner?.text = resources.getString(R.string.winner_message, previousTitle)
+        binding?.groupWinner?.text =
+            resources.getString(R.string.winner_message, previousTitle)
         binding?.konfettiView?.makeOneShot()
     }
 

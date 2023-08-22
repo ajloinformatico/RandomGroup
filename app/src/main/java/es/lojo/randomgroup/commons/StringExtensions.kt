@@ -9,13 +9,20 @@ private const val CLASS_NAME = "StringExtensions"
  */
 fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
 
-fun String?.toIntCustom(): Int = if (this.orEmpty().isEmpty()) {
-    0
-} else {
-    try {
-        this.orEmpty().toInt()
-    } catch (e: Exception) {
-        CustomLog.log(CLASS_NAME, e.toString())
-        0
+fun String?.toIntOrElse(default: Int = 0): Int = try {
+    this.orEmpty().takeIf { it.isNotEmpty() }?.toInt() ?: default
+} catch (e: Exception) {
+    default
+}
+
+fun String.toCapitalize(): String {
+    var result = ""
+    this.forEachIndexed { index, c ->
+        result += if (index == 0) {
+            c.uppercaseChar()
+        } else {
+            c.lowercaseChar()
+        }
     }
+    return result
 }

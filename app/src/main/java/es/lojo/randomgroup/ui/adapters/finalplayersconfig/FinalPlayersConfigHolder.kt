@@ -19,36 +19,37 @@ class FinalPlayersConfigHolder(
         item: ConfigurePlayersFinalGroupsModel,
         event: (FinalPlayerConfigState) -> Unit
     ) {
-        val groupName = "Group ${item.groupNumber.toString()}"
-        binding.groupName.text = groupName
-        binding.recycler.adapter = adapter
-        adapter.submitList(item.playersName)
+        val groupNameText = "Group ${item.groupNumber}"
+        with(binding) {
+            groupName.text = groupNameText
+            recycler.adapter = adapter
+            adapter.submitList(item.playersName)
 
-        // set items colors if item is clicked or not
-        binding.cardView.backgroundTintList = ColorStateList.valueOf(
-            ContextCompat.getColor(
-                binding.root.context,
-                if (item.clicked) {
-                    android.R.color.holo_green_dark
-                } else {
-                    R.color.cardview_background
-                }
+            // set items colors if item is clicked or not
+            cardView.backgroundTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(
+                    binding.root.context,
+                    if (item.clicked) {
+                        android.R.color.holo_green_dark
+                    } else {
+                        R.color.cardview_background
+                    }
+                )
             )
-        )
-
-        binding.infoContainer.setOnClickListener {
-            doOnClick(event, item)
+            infoContainer.setOnClickListener {
+                doOnClick(event, item)
+            }
+            root.setOnClickListener {
+                doOnClick(event, item)
+            }
+            cardView.setOnClickListener {
+                doOnClick(event, item)
+            }
+            groupName.setOnClickListener {
+                doOnClick(event, item)
+            }
+            recycler.setOnClickListener { doOnClick(event, item) }
         }
-        binding.root.setOnClickListener {
-            doOnClick(event, item)
-        }
-        binding.cardView.setOnClickListener {
-            doOnClick(event, item)
-        }
-        binding.groupName.setOnClickListener {
-            doOnClick(event, item)
-        }
-        binding.recycler.setOnClickListener { doOnClick(event, item) }
     }
 
     private fun doOnClick(
@@ -65,5 +66,4 @@ class FinalPlayersConfigHolder(
             )
         )
     }
-
 }

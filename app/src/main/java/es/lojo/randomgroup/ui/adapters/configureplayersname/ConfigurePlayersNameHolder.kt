@@ -19,10 +19,10 @@ class ConfigurePlayersNameHolder(
         event: (PlayerUpdate) -> Unit
     ) {
         val playerPosition = "Player ${position + 1}"
-        binding.apply {
+        with(binding) {
             playerNumber.text = playerPosition
             playerName.hint = item.name.toEditable()
-            playerName.doOnTextChanged { text, start, before, count ->
+            playerName.doOnTextChanged { text, _, _, _ ->
                 event(
                     PlayerUpdate(
                         position = position,

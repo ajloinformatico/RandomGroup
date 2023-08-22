@@ -3,18 +3,17 @@ package es.lojo.randomgroup.ui.adapters.finalplayersconfig
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import es.lojo.randomgroup.data.models.ConfigurePlayersFinalGroupsModel
 import es.lojo.randomgroup.databinding.RowPlayersGroupBinding
 import es.lojo.randomgroup.ui.states.FinalPlayerConfigState
 
 class FinalPlayersConfigAdapter(
     private val event: (FinalPlayerConfigState) -> Unit
-) : ListAdapter<ConfigurePlayersFinalGroupsModel, RecyclerView.ViewHolder>(
-    FinalPlayersConfigAdapterDiffUtil
+) : ListAdapter<ConfigurePlayersFinalGroupsModel, FinalPlayersConfigHolder>(
+    FinalPlayersConfigAdapterDiffUtil()
 ) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FinalPlayersConfigHolder =
         FinalPlayersConfigHolder(
             RowPlayersGroupBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -23,8 +22,8 @@ class FinalPlayersConfigAdapter(
             )
         )
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as? FinalPlayersConfigHolder)?.bind(
+    override fun onBindViewHolder(holder: FinalPlayersConfigHolder, position: Int) {
+        holder.bind(
             item = getItem(position),
             event = event
         )

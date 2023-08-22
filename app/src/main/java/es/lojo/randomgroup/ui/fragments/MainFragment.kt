@@ -20,7 +20,7 @@ class MainFragment : Fragment() {
     private var binding: FragmentMainBinding? = null
     private val navController: NavController by lazy { findNavController() }
 
-    // Note: custom callback onBackPressed
+    // Note: custom callback onBackPressed TODO TEST AND MAYBE MOVE TO ANOTHER PLACE
     private val callBackOnBackPressed: OnBackPressedCallback =
         object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -28,7 +28,6 @@ class MainFragment : Fragment() {
                     .setPositiveButton(R.string.yes) { _, _ -> activity?.finish() }
                     .setNegativeButton("no please") { _, _ -> /* no-op */ }
                     .create().show()
-                this.remove()
             }
         }
 
@@ -59,7 +58,6 @@ class MainFragment : Fragment() {
                 null,
             )
         }
-
     }
 
     override fun onDestroyView() {
