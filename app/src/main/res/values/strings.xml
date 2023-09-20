@@ -32,11 +32,21 @@
     <!-- Banner action -->
     <string name="infolojo_complete_url">https://www.infolojo.es</string>
 
-    <!--Dialog-->
+    <!-- Dialog-->
     <string name="close_game">Close game ?</string>
     <string name="yes">yes</string>
     <string name="re_run_game_plase">I want to play again</string>
     <string name="no">no</string>
 
+    <!-- Configure players errors -->
+    <string name="error_competition_name">Please check the competition name</string>
+    <string name="error_number_of_players">Please check number of players</string>
+    <string name="error_number_of_players_minus_than_1">We need almost two players</string>
+    <string name="error_number_of_groups_are_bigger_than_players">Groups number is bigger than players WTF !!</string>
+    <string name="error_unknown">Please check all your inputs</string>
+
+    <!-- Common -->
+    <string name="Group">Group</string>
+    <string name="init_app">Init Random Group APP</string>
 
 </resources>

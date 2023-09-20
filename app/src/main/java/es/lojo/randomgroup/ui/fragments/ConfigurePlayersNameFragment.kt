@@ -35,7 +35,7 @@ class ConfigurePlayersNameFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        CustomLog.log(CLASS_NAME, "init", "fragment")
+        InfolojoLogger.log(CLASS_NAME, "init", "fragment")
         binding = FragmentConfigurePlayersNameBinding.bind(
             inflater.inflate(
                 R.layout.fragment_configure_players_name,
@@ -101,7 +101,7 @@ class ConfigurePlayersNameFragment : Fragment() {
                 is ConfigurePlayersNameGridViewState.Error -> {
                     binding?.root?.let { rootView ->
                         hideKeyboard()
-                        SnackBarMaker.showError(
+                        InfolojoMessageMaker.showError(
                             rootView,
                             state.error.message
                         )

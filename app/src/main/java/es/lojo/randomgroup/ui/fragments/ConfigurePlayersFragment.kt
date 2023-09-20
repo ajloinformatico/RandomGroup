@@ -12,8 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import es.lojo.randomgroup.R
-import es.lojo.randomgroup.commons.CustomLog
-import es.lojo.randomgroup.commons.SnackBarMaker
+import es.lojo.randomgroup.commons.InfolojoLogger
+import es.lojo.randomgroup.commons.InfolojoMessageMaker
 import es.lojo.randomgroup.commons.hide
 import es.lojo.randomgroup.commons.hideVirtualKeyBoard
 import es.lojo.randomgroup.commons.show
@@ -36,7 +36,7 @@ class ConfigurePlayersFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        CustomLog.log(CLASS_NAME, "init", prefix = "fragment")
+        InfolojoLogger.log(CLASS_NAME, "init", prefix = "fragment")
         binding = FragmentConfigurePlayersBinding.bind(
             inflater.inflate(
                 R.layout.fragment_configure_players, container, false
@@ -88,9 +88,7 @@ class ConfigurePlayersFragment : Fragment() {
         viewModel.setState(ConfigurePlayersViewState.Render)
         binding?.apply {
             continueBottom.setOnClickListener {
-                with(competitionName) {
-                    viewModel.checkToContinue()
-                }
+                viewModel.checkToContinue()
             }
         }
     }
@@ -139,9 +137,9 @@ class ConfigurePlayersFragment : Fragment() {
                 is ConfigurePlayersViewState.Error -> {
                     binding?.root?.let { rootView ->
                         hideKeyboard()
-                        SnackBarMaker.showError(
+                        InfolojoMessageMaker.showError(
                             rootView,
-                            state.error.message
+                            resources.getString(state.error.resource)
                         )
                     }
                 }

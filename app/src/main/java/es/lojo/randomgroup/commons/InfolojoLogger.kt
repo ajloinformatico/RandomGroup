@@ -1,10 +1,13 @@
 package es.lojo.randomgroup.commons
 import android.util.Log
-object CustomLog {
+
+private const val DEFAULT_PREFIX = "info"
+
+object InfolojoLogger {
     fun log(
         className: String,
         message: String,
-        prefix: String = "info",
+        prefix: String = DEFAULT_PREFIX,
         suffix: String = ""
     ) {
         Log.d(className, "$prefix : $message $suffix")

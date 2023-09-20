@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import es.lojo.randomgroup.R
-import es.lojo.randomgroup.commons.CustomLog
+import es.lojo.randomgroup.commons.InfolojoLogger
 import es.lojo.randomgroup.databinding.FragmentMainBinding
 
 private const val CLASS_NAME = "MainFragment"
@@ -35,7 +35,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        CustomLog.log(CLASS_NAME, "init", prefix = "fragment")
+        InfolojoLogger.log(CLASS_NAME, "init", prefix = "fragment")
         binding = FragmentMainBinding.bind(
             inflater.inflate(
                 R.layout.fragment_main,

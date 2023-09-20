@@ -4,21 +4,21 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import es.lojo.randomgroup.data.models.ConfigurePlayersFinalGroupsModel
 import es.lojo.randomgroup.databinding.RowPlayersNameBinding
-import es.lojo.randomgroup.ui.adapters.finalplayersconfig.FinalPlayersConfigHolder
 
-class FinalPlayerConfigIndividualPlayerAdapter :
-    ListAdapter<String, RecyclerView.ViewHolder>(
+class FinalPlayerConfigIndividualPlayerAdapter(
+    private val onClickListener: () -> Unit
+) : ListAdapter<String, RecyclerView.ViewHolder>(
         FinalPlayerConfigIndividualPlayerDiffUtil
     ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         FinalPlayerConfigIndividualPlayerHolder(
-            RowPlayersNameBinding.inflate(
+            binding = RowPlayersNameBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            onClickListener = onClickListener
         )
 
 

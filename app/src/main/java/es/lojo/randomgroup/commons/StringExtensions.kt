@@ -2,8 +2,6 @@ package es.lojo.randomgroup.commons
 
 import android.text.Editable
 
-private const val CLASS_NAME = "StringExtensions"
-
 /**
  * Extension function to convert Strings type to Editable
  */
