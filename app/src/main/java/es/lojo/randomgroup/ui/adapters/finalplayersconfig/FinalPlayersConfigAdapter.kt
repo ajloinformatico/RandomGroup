@@ -15,17 +15,17 @@ class FinalPlayersConfigAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FinalPlayersConfigHolder =
         FinalPlayersConfigHolder(
-            RowPlayersGroupBinding.inflate(
+            binding = RowPlayersGroupBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            event = event
         )
 
     override fun onBindViewHolder(holder: FinalPlayersConfigHolder, position: Int) {
         holder.bind(
-            item = getItem(position),
-            event = event
+            item = getItem(position)
         )
     }
 }

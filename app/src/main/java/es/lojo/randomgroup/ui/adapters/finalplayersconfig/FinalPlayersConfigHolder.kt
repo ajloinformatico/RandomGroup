@@ -11,16 +11,21 @@ import es.lojo.randomgroup.ui.states.FinalPlayerConfigState
 
 class FinalPlayersConfigHolder(
     private val binding: RowPlayersGroupBinding,
+    private val event: (FinalPlayerConfigState) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    private val adapter = FinalPlayerConfigIndividualPlayerAdapter()
+    private var item: ConfigurePlayersFinalGroupsModel? = null
+
+    private val adapter = FinalPlayerConfigIndividualPlayerAdapter {
+        doOnClick()
+    }
 
     fun bind(
         item: ConfigurePlayersFinalGroupsModel,
-        event: (FinalPlayerConfigState) -> Unit
     ) {
-        val groupNameText = "Group ${item.groupNumber}"
+        this.item = item
         with(binding) {
+            val groupNameText = "${root.resources.getString(R.string.Group)} ${item.groupNumber}"
             groupName.text = groupNameText
             recycler.adapter = adapter
             adapter.submitList(item.playersName)
@@ -36,34 +41,23 @@ class FinalPlayersConfigHolder(
                     }
                 )
             )
-            infoContainer.setOnClickListener {
-                doOnClick(event, item)
-            }
-            root.setOnClickListener {
-                doOnClick(event, item)
-            }
-            cardView.setOnClickListener {
-                doOnClick(event, item)
-            }
             groupName.setOnClickListener {
-                doOnClick(event, item)
+                doOnClick()
             }
-            recycler.setOnClickListener { doOnClick(event, item) }
         }
     }
 
-    private fun doOnClick(
-        event: (FinalPlayerConfigState) -> Unit,
-        item: ConfigurePlayersFinalGroupsModel
-    ) {
-        event(
-            FinalPlayerConfigState(
-                group = ConfigurePlayersFinalGroupsModel(
-                    groupNumber = item.groupNumber,
-                    playersName = item.playersName,
-                    clicked = !item.clicked
+    private fun doOnClick() {
+        item?.let { safeItem ->
+            event(
+                FinalPlayerConfigState(
+                    group = ConfigurePlayersFinalGroupsModel(
+                        groupNumber = safeItem.groupNumber,
+                        playersName = safeItem.playersName,
+                        clicked = !safeItem.clicked
+                    )
                 )
             )
-        )
+        }
     }
 }

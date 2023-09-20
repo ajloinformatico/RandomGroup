@@ -4,7 +4,7 @@ import android.graphics.Color
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
 
-object SnackBarMaker {
+object InfolojoMessageMaker {
     /**
      * Show error using simple custom toast
      */

@@ -1,9 +1,5 @@
 package es.lojo.randomgroup.commons
 
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import androidx.appcompat.app.AppCompatActivity
-
 /**
  * Calculate players for one group
  */

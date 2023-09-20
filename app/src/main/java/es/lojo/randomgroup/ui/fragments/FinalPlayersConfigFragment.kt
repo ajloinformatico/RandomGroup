@@ -1,6 +1,5 @@
 package es.lojo.randomgroup.ui.fragments
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -14,7 +13,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import es.lojo.randomgroup.R
-import es.lojo.randomgroup.commons.SnackBarMaker
+import es.lojo.randomgroup.commons.InfolojoLogger
+import es.lojo.randomgroup.commons.InfolojoMessageMaker
 import es.lojo.randomgroup.commons.hide
 import es.lojo.randomgroup.commons.makeOneShot
 import es.lojo.randomgroup.commons.show
@@ -23,6 +23,8 @@ import es.lojo.randomgroup.ui.adapters.finalplayersconfig.FinalPlayersConfigAdap
 import es.lojo.randomgroup.ui.states.FinalPlayerConfigState
 import es.lojo.randomgroup.ui.states.FinalPlayersConfigViewState
 import es.lojo.randomgroup.ui.viewmodel.FinalPlayersConfigViewModel
+
+private const val CLASS_NAME = "FinalPlayersConfigFragment"
 
 class FinalPlayersConfigFragment : Fragment() {
 
@@ -47,6 +49,7 @@ class FinalPlayersConfigFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        InfolojoLogger.log(CLASS_NAME, "init", "fragment")
         binding = FragmentFinalPlayersConfigBinding.bind(
             inflater.inflate(
                 R.layout.fragment_final_players_config,
@@ -98,7 +101,7 @@ class FinalPlayersConfigFragment : Fragment() {
                 }
 
                 is FinalPlayersConfigViewState.CustomError -> {
-                    SnackBarMaker.showError(binding?.root, state.message)
+                    InfolojoMessageMaker.showError(binding?.root, state.message)
                 }
 
                 is FinalPlayersConfigViewState.Unknown -> {

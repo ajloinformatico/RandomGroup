@@ -1,5 +1,6 @@
 package es.lojo.randomgroup.ui.states
 
+import es.lojo.randomgroup.R
 import es.lojo.randomgroup.data.models.ConfigureOfPlayersModel
 import es.lojo.randomgroup.data.models.ConfigurePlayersFinalGroupsModel
 import es.lojo.randomgroup.data.models.ConfigurePlayersFinalModel
@@ -14,12 +15,12 @@ sealed class ConfigurePlayersViewState {
         ConfigurePlayersViewState()
 }
 
-enum class ConfigurePlayersErrors(val message: String) {
-    COMPETITION_NAME("Please check the competition name"),
-    NUMBER_OF_PLAYERS("Please check number of players"),
-    NUMBER_OF_PLAYERS_MINUS_THAN_1("We need almost two players"),
-    NUMBER_OF_GROUPS_MORE_THAN_PLAYERS("Groups number is bigger than players WTF !!"),
-    UNKNOWN("Please check all your inputs"),
+enum class ConfigurePlayersErrors(val resource: Int) {
+    COMPETITION_NAME(R.string.error_competition_name),
+    NUMBER_OF_PLAYERS(R.string.error_number_of_players),
+    NUMBER_OF_PLAYERS_MINUS_THAN_1(R.string.error_number_of_players_minus_than_1),
+    NUMBER_OF_GROUPS_MORE_THAN_PLAYERS(R.string.error_number_of_groups_are_bigger_than_players),
+    UNKNOWN(R.string.error_unknown),
 }
 // endregion
 
