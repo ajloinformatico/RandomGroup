@@ -30,7 +30,7 @@
     </style>
 
     <!--continue button -->
-    <style name="continueButton">
+    <style name="commonButton">
         <item name="android:backgroundTint">@color/black_gray</item>
         <item name="android:textColor">@color/white</item>
     </style>

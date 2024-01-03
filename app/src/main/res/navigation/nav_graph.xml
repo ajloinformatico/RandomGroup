@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/fragmentConfigurePlayers"
-        android:name="es.lojo.randomgroup.ui.fragments.ConfigurePlayersFragment"
+        android:name="es.lojo.randomgroup.ui.configureplayersandgroups.fragments.ConfigurePlayersFragment"
         android:label="Configure players"
         tools:layout="@layout/fragment_configure_players">
 
@@ -52,7 +52,7 @@
 
     <fragment
         android:id="@+id/fragmentConfigurePlayersName"
-        android:name="es.lojo.randomgroup.ui.fragments.ConfigurePlayersNameFragment"
+        android:name="es.lojo.randomgroup.ui.configureplayersandgroups.fragments.ConfigurePlayersNameFragment"
         android:label="Configure players name"
         tools:layout="@layout/fragment_configure_players_name">
 
@@ -74,7 +74,7 @@
 
     <fragment
         android:id="@+id/fragmentFinalPlayersConfig"
-        android:name="es.lojo.randomgroup.ui.fragments.FinalPlayersConfigFragment"
+        android:name="es.lojo.randomgroup.ui.configureplayersandgroups.fragments.FinalPlayersConfigFragment"
         android:label="Final players config"
         tools:layout="@layout/fragment_final_players_config">
 

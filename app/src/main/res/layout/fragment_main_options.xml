@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/defaultPadding">
+
+    <!-- TODO CREATE STRING RESOURCES -->
+
+    <!-- Container to center all screen content -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/contentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- region players and groups button -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/playersAndGroupsButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/players_and_groups_button_info"
+            android:text="@string/players_and_groups_button_text"
+            app:layout_constraintEnd_toStartOf="@id/playersAndGroupsInfoButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/playersAndGroupsInfoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp6"
+            android:contentDescription="@string/players_and_groups_button_info_content_description"
+            android:src="@drawable/baseline_info_24"
+            app:layout_constraintBottom_toBottomOf="@id/playersAndGroupsButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/playersAndGroupsButton"
+            app:layout_constraintTop_toTopOf="@id/playersAndGroupsButton" />
+        <!-- endregion -->
+
+        <!-- region getOneRandomButton -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/getOneRandomButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/get_one_random_button_text_info"
+            android:text="@string/get_one_random_button_text"
+            app:layout_constraintEnd_toStartOf="@id/getOneRandomInfoButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/playersAndGroupsButton" />
+
+        <ImageView
+            android:id="@+id/getOneRandomInfoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp6"
+            android:contentDescription="@string/get_one_random_button_text_info_content_description"
+            android:src="@drawable/baseline_info_24"
+            app:layout_constraintBottom_toBottomOf="@id/getOneRandomButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/getOneRandomButton"
+            app:layout_constraintTop_toTopOf="@id/getOneRandomButton" />
+        <!-- endregion -->
+
+        <!-- region invisibleFriendsButton -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/secret_couples"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/secret_couples_button_info"
+            android:text="@string/secret_couples_button_text"
+            app:layout_constraintEnd_toStartOf="@id/secretCouplesInfoButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/getOneRandomButton" />
+
+        <ImageView
+            android:id="@+id/secretCouplesInfoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp6"
+            android:contentDescription="@string/secret_couples_button_info_content_description"
+            android:src="@drawable/baseline_info_24"
+            app:layout_constraintBottom_toBottomOf="@id/secret_couples"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/secret_couples"
+            app:layout_constraintTop_toTopOf="@id/secret_couples" />
+        <!-- endregion -->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- this text is used to show info about each bottom-->
+    <TextView
+        android:id="@+id/info_description"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="this option create random groups with players. It can be usefull for example for a competition with your firends" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

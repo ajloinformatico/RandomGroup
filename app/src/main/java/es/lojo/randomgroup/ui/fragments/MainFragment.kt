@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import es.lojo.randomgroup.R
-import es.lojo.randomgroup.commons.InfolojoLogger
+import es.lojo.randomgroup.commons.objects.InfolojoLogger
 import es.lojo.randomgroup.databinding.FragmentMainBinding
 
 private const val CLASS_NAME = "MainFragment"

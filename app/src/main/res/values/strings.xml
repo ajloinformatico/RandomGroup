@@ -19,8 +19,6 @@
 
     <!-- inputs -->
     <string name="defaultNumberOfPlayers">4</string>
-
-    <!-- inputs -->
     <string name="defaultNumberOfGroups">2</string>
 
     <!-- buttons -->
@@ -28,6 +26,18 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="player_x">Player x</string>
+    <string name="players_and_groups_button_text">Make players and groups</string>
+    <string name="players_and_groups_button_info">This option creates random groups with players. It can be useful, for example, for a competition with your friends.</string>
+    <string name="players_and_groups_button_info_content_description">Show info about players and groups button</string>
+
+    <string name="get_one_random_button_text">Get one option random</string>
+    <string name="get_one_random_button_text_info">this option get a random element from a list of elements. It can be useful, for example, for a strange thing or an individual challenge</string>
+    <string name="get_one_random_button_text_info_content_description">Show info about Get one option random button</string>
+
+    <string name="secret_couples_button_text">Secret couples (Invisible friend)</string>
+    <string name="secret_couples_button_info">This option is to create a list of invisible friends. It can be useful, For example for an invisible friends</string>
+    <string name="secret_couples_button_info_content_description">Show info about Secret couples random button</string>
+
 
     <!-- Banner action -->
     <string name="infolojo_complete_url">https://www.infolojo.es</string>

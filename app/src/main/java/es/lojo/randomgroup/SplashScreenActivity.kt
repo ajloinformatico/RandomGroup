@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import es.lojo.randomgroup.commons.InfolojoLogger
+import es.lojo.randomgroup.commons.objects.InfolojoLogger
 import es.lojo.randomgroup.ui.activities.MainActivity
 import kotlinx.coroutines.*
 

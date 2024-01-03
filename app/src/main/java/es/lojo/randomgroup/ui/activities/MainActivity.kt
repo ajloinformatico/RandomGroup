@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.navigation.ActivityNavigator
 import es.lojo.randomgroup.R
-import es.lojo.randomgroup.commons.InfolojoLogger
-import es.lojo.randomgroup.commons.manageWebViewInfolojo
+import es.lojo.randomgroup.commons.objects.InfolojoLogger
+import es.lojo.randomgroup.commons.extensions.manageWebViewInfolojo
 import es.lojo.randomgroup.databinding.ActivityMainBinding
 
 const val CLASS_NAME = "MainActivity"
@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         manageWebViewBanner()
     }
 
+    /** Update system navigate bottom. */
     private fun configureNavigationBottomBarView() {
         window.navigationBarColor = ContextCompat.getColor(
             this,
