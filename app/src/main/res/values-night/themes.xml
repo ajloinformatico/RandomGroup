@@ -25,7 +25,7 @@
     </style>
 
     <!--continue button -->
-    <style name="continueButton">
+    <style name="commonButton">
         <item name="android:backgroundTint">@color/white</item>
         <item name="android:textColor">@color/black_gray</item>
     </style>

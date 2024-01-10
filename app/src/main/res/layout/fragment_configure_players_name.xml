@@ -7,7 +7,7 @@
     android:clickable="true"
     android:focusable="true"
     android:paddingHorizontal="@dimen/defaultPadding"
-    tools:context=".ui.fragments.ConfigurePlayersNameFragment">
+    tools:context=".ui.configureplayersandgroups.fragments.ConfigurePlayersNameFragment">
 
     <TextView
         android:id="@+id/competitionName"
@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/continueButton"
-        style="@style/continueButton"
+        style="@style/commonButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

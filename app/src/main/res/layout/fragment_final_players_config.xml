@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="@dimen/defaultPadding"
-    tools:context=".ui.fragments.FinalPlayersConfigFragment">
+    tools:context=".ui.configureplayersandgroups.fragments.FinalPlayersConfigFragment">
 
     <nl.dionsegijn.konfetti.xml.KonfettiView
         android:id="@+id/konfettiView"
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:text="@string/continueButton"
         android:visibility="gone"
-        style="@style/continueButton"
+        style="@style/commonButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
