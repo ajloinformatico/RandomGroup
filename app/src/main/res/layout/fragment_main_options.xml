@@ -3,16 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/defaultPadding">
+    android:layout_height="match_parent">
 
-    <!-- TODO CREATE STRING RESOURCES -->
+    <TextView
+        android:id="@+id/appName"
+        style="@style/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main_options"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Container to center all screen content -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/contentContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="@dimen/defaultPadding"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -93,12 +101,13 @@
     <!-- this text is used to show info about each bottom-->
     <TextView
         android:id="@+id/info_description"
+        style="@style/text_overly"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="this option create random groups with players. It can be usefull for example for a competition with your firends" />
+        tools:text="this option create random groups with players. It can be usefull for example for a competition with your firends"
+        tools:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

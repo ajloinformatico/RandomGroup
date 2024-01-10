@@ -54,7 +54,7 @@ class MainFragment : Fragment() {
             // Note: remove onBackPressed callback
             callBackOnBackPressed.remove()
             navController.navigate(
-                R.id.action_fragmentMain_to_fragmentConfigurePlayers,
+                R.id.action_fragmentMain_to_mainOptionsFragment,
                 null,
             )
         }
