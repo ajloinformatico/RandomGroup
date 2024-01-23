@@ -20,7 +20,7 @@ object InfolojoThemeHelper {
         context.window.statusBarColor = getColor(context, color)
     }
 
-    fun resetBackGroundColor(context: Activity?) {
+    fun resetStatusBarBackGroundColor(context: Activity?) {
         context ?: return
         statusBarColor?.let(context.window::setStatusBarColor)
     }

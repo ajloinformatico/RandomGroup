@@ -4,15 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import es.lojo.randomgroup.R
+import es.lojo.randomgroup.commons.extensions.showAnimationFromBottomToTop
+import es.lojo.randomgroup.commons.extensions.showAnimationFromTopToBottom
 import es.lojo.randomgroup.commons.objects.InfolojoLogger
 import es.lojo.randomgroup.commons.objects.InfolojoMessageMaker
-import es.lojo.randomgroup.commons.objects.InfolojoThemeHelper
 import es.lojo.randomgroup.databinding.FragmentMainOptionsBinding
 
 private const val CLASS_NAME = "MainOptionsFragment"
@@ -43,28 +42,26 @@ class MainOptionsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        hideButtonInfo()
         initView()
     }
 
-    /** Show [text] info about button in screen with a animation. */
+    /** Show [text] info about button in screen with a animation from bottom To top. */
     private fun showButtonInfo(text: String) {
-        // TODO Animation to show info from button to top
         binding?.infoDescription?.apply {
             this.text = text
-            isVisible = true
+            showAnimationFromBottomToTop(
+                activity = activity
+            )
         }
-
-        InfolojoThemeHelper.updateStatusBarColor(activity, R.color.back_ground_overly)
     }
 
-    /** Hidde info about button in screen with a animation. */
+    /** Hidde info about button in screen with a animation from top to bottom. */
     private fun hideButtonInfo() {
-        // TODO Animation to hide info from top to button
         binding?.infoDescription?.apply {
-            isVisible = false
             text = ""
+            showAnimationFromTopToBottom(activity = activity)
         }
-        InfolojoThemeHelper.resetBackGroundColor(activity)
     }
 
     private fun initView() {
