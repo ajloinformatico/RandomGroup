@@ -8,7 +8,6 @@ private const val DIFF_UTILS_VALUE = "diffUtils"
 private const val LIST_ADAPTER_VALUE = "listAdapter"
 private const val RANDOM_APP = "randomGroupApp"
 
-
 enum class LoggerTypes(val value: String) {
     ACTIVITY(ACTIVITY_VALUE),
     FRAGMENT(FRAGMENT_VALUE),

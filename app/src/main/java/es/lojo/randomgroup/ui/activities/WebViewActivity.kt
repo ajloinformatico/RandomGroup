@@ -14,7 +14,7 @@ import es.lojo.randomgroup.databinding.ActivityWebViewBinding
 
 private const val CLASS_NAME = "WebViewActivity"
 
-class WebViewActivity: AppCompatActivity() {
+class WebViewActivity : AppCompatActivity() {
 
     private var binding: ActivityWebViewBinding? = null
     private val webViewName: String by lazy {
@@ -51,7 +51,6 @@ class WebViewActivity: AppCompatActivity() {
             }
         )
     }
-
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun loadWebView() {

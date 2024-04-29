@@ -65,5 +65,4 @@
     <string name="init_app">Init Random Group APP</string>
     <string name="init_web_view_activity">Init WebView</string>
     <string name="random_result_is">Random result is:</string>
-
 </resources>

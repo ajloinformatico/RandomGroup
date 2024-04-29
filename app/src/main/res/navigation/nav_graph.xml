@@ -41,14 +41,6 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
-        <!--        <action-->
-        <!--            android:id="@+id/action_fragmentConfigurePlayers_to_fragmentConfigurePlayersName"-->
-        <!--            app:destination="@id/fragmentConfigurePlayersName"-->
-        <!--            app:enterAnim="@anim/slide_bottom_up"-->
-        <!--            app:exitAnim="@anim/slide_bottom_down"-->
-        <!--            app:popEnterAnim="@anim/slide_bottom_up"-->
-        <!--            app:popExitAnim="@anim/slide_bottom_down" />-->
-
     </fragment>
 
     <fragment
@@ -113,6 +105,7 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
         <action
             android:id="@+id/action_mainOptionsFragment_to_randomOptionFragment"
             app:destination="@id/randomOptionFragment" />
@@ -122,7 +115,8 @@
         android:id="@+id/randomOptionFragment"
         android:name="es.lojo.randomgroup.ui.randomoption.fragments.RandomOptionFragment"
         android:label="fragment_random_option"
-        tools:layout="@layout/fragment_random_option" >
+        tools:layout="@layout/fragment_random_option">
+
         <action
             android:id="@+id/action_randomOptionFragment_to_mainOptionsFragment"
             app:destination="@id/mainOptionsFragment" />

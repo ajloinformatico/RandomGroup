@@ -71,7 +71,6 @@ class RandomOptionFragment : Fragment() {
         customOnBackPressed()
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
         binding = null
@@ -94,13 +93,12 @@ class RandomOptionFragment : Fragment() {
                 }
 
                 is RandomOptionViewState.Error -> {
-                    binding?.progressbar?.hide()
-                    binding?.root?.let { root ->
+                    binding?.apply {
+                        progressbar.hide()
                         InfolojoMessageMaker.showError(
                             view = root,
                             text = state.error.message
                         )
-
                     }
                 }
             }
