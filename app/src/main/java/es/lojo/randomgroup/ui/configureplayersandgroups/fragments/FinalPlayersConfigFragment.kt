@@ -13,11 +13,12 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import es.lojo.randomgroup.R
-import es.lojo.randomgroup.commons.objects.InfolojoLogger
+import es.lojo.randomgroup.commons.logger.InfolojoLogger
 import es.lojo.randomgroup.commons.objects.InfolojoMessageMaker
 import es.lojo.randomgroup.commons.extensions.hide
 import es.lojo.randomgroup.commons.extensions.makeOneShot
 import es.lojo.randomgroup.commons.extensions.show
+import es.lojo.randomgroup.commons.logger.LoggerTypes
 import es.lojo.randomgroup.databinding.FragmentFinalPlayersConfigBinding
 import es.lojo.randomgroup.ui.configureplayersandgroups.adapters.finalplayersconfig.FinalPlayersConfigAdapter
 import es.lojo.randomgroup.ui.configureplayersandgroups.states.FinalPlayerConfigState
@@ -49,7 +50,11 @@ class FinalPlayersConfigFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        InfolojoLogger.log(CLASS_NAME, "init", "fragment")
+        InfolojoLogger.log(
+            ctx = CLASS_NAME,
+            message = "init",
+            suffix = LoggerTypes.FRAGMENT
+        )
         binding = FragmentFinalPlayersConfigBinding.bind(
             inflater.inflate(
                 R.layout.fragment_final_players_config,

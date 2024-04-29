@@ -113,7 +113,18 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_mainOptionsFragment_to_randomOptionFragment"
+            app:destination="@id/randomOptionFragment" />
     </fragment>
 
-
+    <fragment
+        android:id="@+id/randomOptionFragment"
+        android:name="es.lojo.randomgroup.ui.randomoption.fragments.RandomOptionFragment"
+        android:label="fragment_random_option"
+        tools:layout="@layout/fragment_random_option" >
+        <action
+            android:id="@+id/action_randomOptionFragment_to_mainOptionsFragment"
+            app:destination="@id/mainOptionsFragment" />
+    </fragment>
 </navigation>

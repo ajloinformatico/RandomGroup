@@ -10,7 +10,8 @@ import androidx.navigation.fragment.findNavController
 import es.lojo.randomgroup.R
 import es.lojo.randomgroup.commons.extensions.showAnimationFromBottomToTop
 import es.lojo.randomgroup.commons.extensions.showAnimationFromTopToBottom
-import es.lojo.randomgroup.commons.objects.InfolojoLogger
+import es.lojo.randomgroup.commons.logger.InfolojoLogger
+import es.lojo.randomgroup.commons.logger.LoggerTypes
 import es.lojo.randomgroup.commons.objects.InfolojoMessageMaker
 import es.lojo.randomgroup.databinding.FragmentMainOptionsBinding
 
@@ -23,7 +24,7 @@ class MainOptionsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        InfolojoLogger.log(CLASS_NAME, "init", prefix = "fragment")
+        InfolojoLogger.log(CLASS_NAME, "init", suffix = LoggerTypes.FRAGMENT)
     }
 
     override fun onCreateView(
@@ -95,7 +96,10 @@ class MainOptionsFragment : Fragment() {
         binding?.apply {
             getOneRandomButton.setOnClickListener {
                 // TODO Navigate to this screen
-                InfolojoMessageMaker.showMessage(root, "navigate to get one random")
+                navController.navigate(
+                    R.id.action_mainOptionsFragment_to_randomOptionFragment,
+                    null
+                )
             }
             getOneRandomInfoButton.setOnClickListener {
                 showButtonInfo(getOneRandomButton.contentDescription.toString())

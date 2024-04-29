@@ -13,6 +13,7 @@ import nl.dionsegijn.konfetti.xml.KonfettiView
 import java.util.concurrent.TimeUnit
 
 private const val DEFAULT_VIEW_DURATION = 500L
+private const val CLASS_NAME = "ViewExtensions"
 
 fun View.show() {
     visibility = View.VISIBLE

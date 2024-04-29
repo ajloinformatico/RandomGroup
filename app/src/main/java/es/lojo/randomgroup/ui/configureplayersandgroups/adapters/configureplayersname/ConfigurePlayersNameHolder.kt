@@ -23,12 +23,14 @@ class ConfigurePlayersNameHolder(
             playerNumber.text = playerPosition
             playerName.hint = item.name.toEditable()
             playerName.doOnTextChanged { text, _, _, _ ->
-                event(
-                    PlayerUpdate(
-                        position = position,
-                        name = text.toString()
+                text?.toString()?.let {
+                    event(
+                        PlayerUpdate(
+                            position = position,
+                            name = it
+                        )
                     )
-                )
+                }
             }
         }
     }

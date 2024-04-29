@@ -14,7 +14,8 @@ import es.lojo.randomgroup.R
 import es.lojo.randomgroup.commons.extensions.hide
 import es.lojo.randomgroup.commons.extensions.hideVirtualKeyBoard
 import es.lojo.randomgroup.commons.extensions.show
-import es.lojo.randomgroup.commons.objects.InfolojoLogger
+import es.lojo.randomgroup.commons.logger.InfolojoLogger
+import es.lojo.randomgroup.commons.logger.LoggerTypes
 import es.lojo.randomgroup.commons.objects.InfolojoMessageMaker
 import es.lojo.randomgroup.databinding.FragmentConfigurePlayersNameBinding
 import es.lojo.randomgroup.ui.configureplayersandgroups.adapters.configureplayersname.ConfigurePlayersNameAdapter
@@ -39,7 +40,11 @@ class ConfigurePlayersNameFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        InfolojoLogger.log(CLASS_NAME, "init", "fragment")
+        InfolojoLogger.log(
+            ctx = CLASS_NAME,
+            message = "init",
+            suffix = LoggerTypes.FRAGMENT
+        )
         binding = FragmentConfigurePlayersNameBinding.bind(
             inflater.inflate(
                 R.layout.fragment_configure_players_name,
@@ -86,7 +91,9 @@ class ConfigurePlayersNameFragment : Fragment() {
             viewModel.continueClick()
         }
         // Hide keyboard
-        hideKeyboard()
+        binding?.root?.setOnClickListener {
+            hideKeyboard()
+        }
     }
 
     private fun initViewModel() {
@@ -135,14 +142,10 @@ class ConfigurePlayersNameFragment : Fragment() {
      * Hide keyboard when user click in any way
      */
     private fun hideKeyboard() {
-        binding?.let { bindView ->
-            (requireActivity() as? AppCompatActivity)?.let { appCompatActivity ->
-                bindView.root.setOnClickListener {
-                    (0 until adapter.itemCount).forEachIndexed { i, _ ->
-                        binding?.recycler?.getChildAt(i)?.apply {
-                            appCompatActivity.hideVirtualKeyBoard(this.findViewById(R.id.playerName))
-                        }
-                    }
+        (activity as? AppCompatActivity)?.let { appCompatActivity ->
+            (0 until adapter.itemCount).forEachIndexed { i, _ ->
+                binding?.recycler?.getChildAt(i)?.apply {
+                    appCompatActivity.hideVirtualKeyBoard(this.findViewById(R.id.playerName))
                 }
             }
         }

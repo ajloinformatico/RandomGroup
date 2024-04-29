@@ -9,6 +9,7 @@ object InfolojoThemeHelper {
 
     private var statusBarColor: Int? = null
 
+    @JvmStatic
     fun getColor(context: Context, @ColorRes color: Int): Int = ContextCompat.getColor(
         context,
         color

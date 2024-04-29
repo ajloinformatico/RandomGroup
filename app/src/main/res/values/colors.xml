@@ -9,5 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="black_gray">#252525</color>
     <color name="cardview_background">#FF424242</color>
-    <color name="back_ground_overly">#E6424242</color>
+    <color name="back_ground_overly">#C6424242</color>
 </resources>
