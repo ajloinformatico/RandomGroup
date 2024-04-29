@@ -3,15 +3,17 @@ package es.lojo.randomgroup.ui.activities
 import android.content.res.Configuration.UI_MODE_NIGHT_MASK
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.navigation.ActivityNavigator
 import es.lojo.randomgroup.R
-import es.lojo.randomgroup.commons.InfolojoLogger
-import es.lojo.randomgroup.commons.manageWebViewInfolojo
+import es.lojo.randomgroup.commons.logger.InfolojoLogger
+import es.lojo.randomgroup.commons.extensions.manageWebViewInfolojo
+import es.lojo.randomgroup.commons.logger.LoggerTypes
 import es.lojo.randomgroup.databinding.ActivityMainBinding
 
-const val CLASS_NAME = "MainActivity"
+private const val CLASS_NAME = "MainActivity"
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,7 +21,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        InfolojoLogger.log(CLASS_NAME, resources.getString(R.string.init_app))
+        InfolojoLogger.log(
+            ctx = CLASS_NAME,
+            message = resources.getString(R.string.init_app),
+            suffix = LoggerTypes.ACTIVITY
+        )
+
+        // Prepare status bar to update in other fragments
+        window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setTheme(R.style.NoActionBar)
         setContentView(binding?.root)
@@ -27,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         manageWebViewBanner()
     }
 
+    /** Update system navigate bottom. */
     private fun configureNavigationBottomBarView() {
         window.navigationBarColor = ContextCompat.getColor(
             this,
