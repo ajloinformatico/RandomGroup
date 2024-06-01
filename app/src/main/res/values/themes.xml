@@ -57,6 +57,16 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="sendCouples">
+        <item name="android:backgroundTint">@color/success</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="warningBase">
+        <item name="android:backgroundTint">@color/warning</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <!--recycler cardView -->
     <style name="customCardView">
         <item name="android:backgroundTint">@color/cardview_background</item>

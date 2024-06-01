@@ -109,6 +109,9 @@
         <action
             android:id="@+id/action_mainOptionsFragment_to_randomOptionFragment"
             app:destination="@id/randomOptionFragment" />
+        <action
+            android:id="@+id/action_mainOptionsFragment_to_secretCoupleFragment"
+            app:destination="@id/secretCoupleFragment" />
     </fragment>
 
     <fragment
@@ -121,4 +124,11 @@
             android:id="@+id/action_randomOptionFragment_to_mainOptionsFragment"
             app:destination="@id/mainOptionsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/secretCoupleFragment"
+        android:name="es.lojo.randomgroup.ui.secretcouples.fragments.SecretCoupleFragment"
+        android:label="fragment_secret_couple"
+        tools:layout="@layout/fragment_secret_couple" />
+
+
 </navigation>

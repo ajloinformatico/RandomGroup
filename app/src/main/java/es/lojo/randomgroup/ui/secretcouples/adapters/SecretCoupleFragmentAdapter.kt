@@ -1,4 +1,4 @@
-package es.lojo.randomgroup.ui.randomoption.adapters
+package es.lojo.randomgroup.ui.secretcouples.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,15 +6,15 @@ import androidx.recyclerview.widget.ListAdapter
 import es.lojo.randomgroup.commons.logger.InfolojoLogger
 import es.lojo.randomgroup.commons.logger.LoggerTypes
 import es.lojo.randomgroup.databinding.RowRandomOptionsSingleOptionBinding
-import es.lojo.randomgroup.ui.randomoption.states.RandomOptionsActions
-import es.lojo.randomgroup.ui.randomoption.vo.RandomOptionVO
+import es.lojo.randomgroup.ui.secretcouples.states.SecretCoupleActions
+import es.lojo.randomgroup.ui.secretcouples.vo.model.SingleSecretCoupleVO
 
-private const val CLASS_NAME = "RandomOptionsFragmentAdapter"
+private const val CLASS_NAME = "SecretCoupleFragmentAdapter"
 
-class RandomOptionsFragmentAdapter(
-    private val onAddText: (RandomOptionsActions) -> Unit
-) : ListAdapter<RandomOptionVO, RandomOptionsFragmentAdapterHolder>(
-    RandomOptionsFragmentAdapterDiffUtils()
+class SecretCoupleFragmentAdapter(
+    private val actions: (SecretCoupleActions) -> Unit
+) : ListAdapter<SingleSecretCoupleVO, SecretCoupleFragmentAdapterHolder>(
+    SecretCoupleFragmentAdapterDiffUtils()
 ) {
     init {
         InfolojoLogger.log(
@@ -27,7 +27,7 @@ class RandomOptionsFragmentAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): RandomOptionsFragmentAdapterHolder = RandomOptionsFragmentAdapterHolder(
+    ): SecretCoupleFragmentAdapterHolder = SecretCoupleFragmentAdapterHolder(
         RowRandomOptionsSingleOptionBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
@@ -35,16 +35,13 @@ class RandomOptionsFragmentAdapter(
         )
     )
 
-    override fun getItem(position: Int): RandomOptionVO? = currentList.getOrNull(position)
+    override fun getItem(position: Int): SingleSecretCoupleVO? = currentList.getOrNull(position)
 
-    override fun onBindViewHolder(
-        holder: RandomOptionsFragmentAdapterHolder,
-        position: Int
-    ) {
+    override fun onBindViewHolder(holder: SecretCoupleFragmentAdapterHolder, position: Int) {
         getItem(position)?.let { item ->
             holder.bind(
                 item = item,
-                event = onAddText
+                event = actions
             )
         }
     }

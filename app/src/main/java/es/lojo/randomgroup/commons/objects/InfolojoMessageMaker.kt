@@ -18,7 +18,7 @@ object InfolojoMessageMaker {
     /**
      * Show positive message message using simple custom toast
      */
-    fun showPositiveMessage(view: View, text: String, timeDuration: Int) =
+    fun showPositiveMessage(view: View, text: String, timeDuration: Int = Snackbar.LENGTH_SHORT) =
         Snackbar.make(view, text, timeDuration)
             .setBackgroundTint(Color.GREEN)
             .setTextColor(Color.WHITE).show()

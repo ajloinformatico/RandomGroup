@@ -12,7 +12,6 @@ import es.lojo.randomgroup.commons.extensions.showAnimationFromBottomToTop
 import es.lojo.randomgroup.commons.extensions.showAnimationFromTopToBottom
 import es.lojo.randomgroup.commons.logger.InfolojoLogger
 import es.lojo.randomgroup.commons.logger.LoggerTypes
-import es.lojo.randomgroup.commons.objects.InfolojoMessageMaker
 import es.lojo.randomgroup.databinding.FragmentMainOptionsBinding
 
 private const val CLASS_NAME = "MainOptionsFragment"
@@ -95,7 +94,6 @@ class MainOptionsFragment : Fragment() {
     private fun prepareGetOneRandomButton() {
         binding?.apply {
             getOneRandomButton.setOnClickListener {
-                // TODO Navigate to this screen
                 navController.navigate(
                     R.id.action_mainOptionsFragment_to_randomOptionFragment,
                     null
@@ -110,8 +108,10 @@ class MainOptionsFragment : Fragment() {
     private fun prepareSecretCouplesButton() {
         binding?.apply {
             secretCouples.setOnClickListener {
-                // TODO NAVIGATE TO this screen
-                InfolojoMessageMaker.showMessage(root, "navigate to secret couples")
+                navController.navigate(
+                    R.id.action_mainOptionsFragment_to_secretCoupleFragment,
+                    null
+                )
             }
             secretCouplesInfoButton.setOnClickListener {
                 showButtonInfo(secretCouples.contentDescription.toString())

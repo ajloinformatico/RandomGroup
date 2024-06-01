@@ -68,7 +68,6 @@ class RandomOptionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
         initViews()
-        customOnBackPressed()
     }
 
     override fun onDestroy() {
@@ -90,6 +89,7 @@ class RandomOptionFragment : Fragment() {
 
                 is RandomOptionViewState.Continue -> {
                     showWinner(state.winner)
+                    activity?.onBackPressedDispatcher?.addCallback(callBackOnBackPressed)
                 }
 
                 is RandomOptionViewState.Error -> {
@@ -196,18 +196,15 @@ class RandomOptionFragment : Fragment() {
         }
     }
 
-    /** Override onBack to hideWinner or nav to previous fragment. */
-    private fun customOnBackPressed() {
-        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true /* enabled by default */) {
+    // Note: custom callback onBackPressed
+    private val callBackOnBackPressed: OnBackPressedCallback =
+        object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (isWinnerVisible) {
-                    hideWinner()
-                } else {
+                if (isWinnerVisible) hideWinner() else {
                     navController.navigate(R.id.action_randomOptionFragment_to_mainOptionsFragment)
-                    this.remove()
                 }
+                this.remove()
             }
-        })
-    }
+        }
     // endregion private
 }

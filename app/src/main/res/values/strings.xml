@@ -26,6 +26,9 @@
 
     <!-- buttons -->
     <string name="continueButton">Continue</string>
+    <string name="sendButton">Send Couples</string>
+    <string name="reorderCouples">Reorder Couples</string>
+    <string name="changeEmails">Change Emails</string>
     <string name="getRandom">Get Random</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
