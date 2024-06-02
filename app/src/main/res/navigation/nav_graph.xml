@@ -108,10 +108,19 @@
 
         <action
             android:id="@+id/action_mainOptionsFragment_to_randomOptionFragment"
-            app:destination="@id/randomOptionFragment" />
+            app:destination="@id/randomOptionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
         <action
             android:id="@+id/action_mainOptionsFragment_to_secretCoupleFragment"
-            app:destination="@id/secretCoupleFragment" />
+            app:destination="@id/secretCoupleFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
