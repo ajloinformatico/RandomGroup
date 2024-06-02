@@ -14,7 +14,10 @@ sealed interface SecretCoupleStates {
     data class Error(
         val error: SecretCoupleError
     ) : SecretCoupleStates
-    data class Continue(
+    data class ShowCouples(
+        val result: SecretCouplesVO
+    ) : SecretCoupleStates
+    data class SendEmail(
         val result: SecretCouplesVO
     ) : SecretCoupleStates
 }

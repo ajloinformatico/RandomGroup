@@ -1,6 +1,7 @@
 package es.lojo.randomgroup.ui.secretcouples.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +22,7 @@ import es.lojo.randomgroup.ui.secretcouples.adapters.SecretCoupleFragmentAdapter
 import es.lojo.randomgroup.ui.secretcouples.states.SecretCoupleActions
 import es.lojo.randomgroup.ui.secretcouples.states.SecretCoupleStates
 import es.lojo.randomgroup.ui.secretcouples.viewmodels.SecretCoupleViewModel
+import es.lojo.randomgroup.ui.secretcouples.vo.model.SecretCouplesVO
 
 private const val CLASS_NAME = "SecretCoupleFragment"
 
@@ -78,9 +80,13 @@ class SecretCoupleFragment : Fragment() {
                 is SecretCoupleStates.Render -> {
                     render()
                 }
-                is SecretCoupleStates.Continue -> {
+                is SecretCoupleStates.ShowCouples -> {
+                    navigateToFinalSecretCouples(state.result)
+                }
+                is SecretCoupleStates.SendEmail -> {
                     binding?.root?.let {
-                        InfolojoMessageMaker.showPositiveMessage(it, "result = ${state.result}")
+                        Log.d("TonyTest", "result to send ${state.result}")
+                        InfolojoMessageMaker.showPositiveMessage(it, "send email with = ${state.result}")
                     }
                 }
                 is SecretCoupleStates.Error -> {
@@ -94,17 +100,25 @@ class SecretCoupleFragment : Fragment() {
 
     private fun initViews() {
         prepareAddButton()
-        prepareContinueButton()
+        prepareShowCouples()
+        prepareSendCouples()
     }
 
     private fun prepareAddButton() {
         binding?.addButton?.setOnClickListener { viewModel.addItem() }
     }
 
-    private fun prepareContinueButton() {
-        binding?.playButton?.setOnClickListener {
+    private fun prepareShowCouples() {
+        binding?.showCouples?.setOnClickListener {
             hideKeyBoard()
-            viewModel.getCouples()
+            viewModel.showCouples()
+        }
+    }
+
+    private fun prepareSendCouples() {
+        binding?.sendEmail?.setOnClickListener {
+            hideKeyBoard()
+            viewModel.sendEmail()
         }
     }
 
@@ -114,6 +128,19 @@ class SecretCoupleFragment : Fragment() {
             viewModel.items.observe(viewLifecycleOwner) { adapter.submitList(it) }
             progressbar.hide()
         }
+    }
+
+    /** Do navigate to Final SecretCouples to show results */
+    private fun navigateToFinalSecretCouples(result: SecretCouplesVO) {
+        navController.navigate(
+            R.id.action_secretCoupleFragment_to_finalSecretCoupleFragment,
+            Bundle().apply {
+                this.putSerializable(
+                    FinalSecretCoupleFragment.SECRET_COUPLES,
+                    result
+                )
+            }
+        )
     }
 
     private fun hideKeyBoard() {

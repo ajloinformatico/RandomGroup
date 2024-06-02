@@ -71,4 +71,8 @@ class FinalSecretCoupleFragment : Fragment() {
     private fun initViews() {
 
     }
+
+    companion object {
+        const val SECRET_COUPLES = "secretCouples"
+    }
 }

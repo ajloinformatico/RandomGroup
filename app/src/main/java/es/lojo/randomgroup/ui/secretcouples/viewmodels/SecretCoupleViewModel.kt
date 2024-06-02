@@ -9,9 +9,7 @@ import es.lojo.randomgroup.commons.logger.LoggerTypes
 import es.lojo.randomgroup.commons.utils.generateCustomUniqueId
 import es.lojo.randomgroup.ui.secretcouples.states.SecretCoupleError
 import es.lojo.randomgroup.ui.secretcouples.states.SecretCoupleStates
-import es.lojo.randomgroup.ui.secretcouples.vo.extensions.reorderCouples
 import es.lojo.randomgroup.ui.secretcouples.vo.extensions.reorderListOfSingleCouples
-import es.lojo.randomgroup.ui.secretcouples.vo.model.SecretCoupleVO
 import es.lojo.randomgroup.ui.secretcouples.vo.model.SecretCouplesVO
 import es.lojo.randomgroup.ui.secretcouples.vo.model.SingleSecretCoupleVO
 import kotlinx.coroutines.launch
@@ -26,6 +24,8 @@ class SecretCoupleViewModel : ViewModel() {
 
     private val _items = MutableLiveData<List<SingleSecretCoupleVO>>()
     val items: LiveData<List<SingleSecretCoupleVO>> = _items
+
+    private var couplesReordered: SecretCouplesVO? = null
 
     fun setState(value: SecretCoupleStates) {
         _viewState.postValue(value)
@@ -55,21 +55,42 @@ class SecretCoupleViewModel : ViewModel() {
             setState(SecretCoupleStates.Render(it))
         }
     }
+
     private fun instanceNewSecretCoupleVO(): SingleSecretCoupleVO = SingleSecretCoupleVO(
         id = generateCustomUniqueId(),
         email = EXAMPLE_EMAIL
     )
 
+
+    private fun finish(sendEmail: Boolean) {
+        _items.value?.takeIf { it.size % 2 == 0 }?.let { couples ->
+            couplesReordered ?: reorder()
+            setState(
+                couplesReordered?.let {
+                    if (sendEmail) {
+                        SecretCoupleStates.SendEmail(it)
+                    } else {
+                        SecretCoupleStates.ShowCouples(it)
+                    }
+                } ?: SecretCoupleStates.Error(SecretCoupleError.NOT_PAR)
+            )
+        } ?: setState(SecretCoupleStates.Error(SecretCoupleError.NOT_PAR))
+    }
+
     // endregion private
 
     // region public
     fun addItem() {
+        // If user update an item we remove private list
+        couplesReordered = null
         val newItems = _items.value.clone()
         newItems.add(instanceNewSecretCoupleVO())
         _items.value = newItems.toList()
     }
 
     fun updateItem(item: SingleSecretCoupleVO) {
+        // If user update an item we remove private list
+        couplesReordered = null
         val newItems = _items.value.clone()
         newItems.toList().mapIndexed { index, currentItem ->
             if (currentItem.id == item.id) {
@@ -81,18 +102,26 @@ class SecretCoupleViewModel : ViewModel() {
     }
 
     fun removeItem(item: SingleSecretCoupleVO) {
+        // If user remove an item we remove private list
+        couplesReordered = null
         val newItems = _items.value.clone()
         newItems.remove(item)
         _items.value = newItems
     }
 
-    fun getCouples() {
+    // reorder list
+    private fun reorder() {
         _items.value?.takeIf { it.size % 2 == 0 }?.let { couples ->
-            setState(SecretCoupleStates.Continue(couples.reorderListOfSingleCouples()))
+            couplesReordered = couples.reorderListOfSingleCouples()
         } ?: setState(SecretCoupleStates.Error(SecretCoupleError.NOT_PAR))
+    }
+
+    fun showCouples() {
+        finish(sendEmail = false)
+    }
+
+    fun sendEmail() {
+        finish(sendEmail = true)
     }
     // endregion public
 }
-
-
-
