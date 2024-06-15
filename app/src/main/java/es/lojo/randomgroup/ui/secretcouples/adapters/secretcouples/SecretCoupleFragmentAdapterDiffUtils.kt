@@ -1,4 +1,4 @@
-package es.lojo.randomgroup.ui.secretcouples.adapters
+package es.lojo.randomgroup.ui.secretcouples.adapters.secretcouples
 
 import androidx.recyclerview.widget.DiffUtil
 import es.lojo.randomgroup.commons.logger.InfolojoLogger

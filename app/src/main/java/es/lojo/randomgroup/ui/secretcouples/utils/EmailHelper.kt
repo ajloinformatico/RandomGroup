@@ -8,6 +8,9 @@ private const val CLASS_NAME = "EmailHelper"
 object EmailHelper {
 
     private val invalidSymbols = listOf(",","*","+","-","[","]","^")
+    const val EXAMPLE_EMAIL = "example@example.example"
+    const val EMAIL_NOT_VALID_TEXT = " is not a valid email"
+    const val EMAIL_IS_EMPTY = "One or more emails are empty"
 
     init {
         InfolojoLogger.log(

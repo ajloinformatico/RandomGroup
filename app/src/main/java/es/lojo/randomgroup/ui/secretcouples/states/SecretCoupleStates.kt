@@ -22,7 +22,7 @@ sealed interface SecretCoupleStates {
     ) : SecretCoupleStates
 }
 
-enum class SecretCoupleError(val message: String) {
+enum class SecretCoupleError(var message: String) {
     UNKNOWN(message = UNKNOWN_ERROR_TEXT),
-    NOT_PAR(message = NOT_PAR_COUPLES),
+    NOT_PAR(message = NOT_PAR_COUPLES)
 }

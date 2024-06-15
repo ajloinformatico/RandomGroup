@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import es.lojo.randomgroup.R
 import es.lojo.randomgroup.commons.extensions.hide
 import es.lojo.randomgroup.commons.extensions.hideVirtualKeyBoard
@@ -18,7 +19,7 @@ import es.lojo.randomgroup.commons.logger.InfolojoLogger
 import es.lojo.randomgroup.commons.logger.LoggerTypes
 import es.lojo.randomgroup.commons.objects.InfolojoMessageMaker
 import es.lojo.randomgroup.databinding.FragmentSecretCoupleBinding
-import es.lojo.randomgroup.ui.secretcouples.adapters.SecretCoupleFragmentAdapter
+import es.lojo.randomgroup.ui.secretcouples.adapters.secretcouples.SecretCoupleFragmentAdapter
 import es.lojo.randomgroup.ui.secretcouples.states.SecretCoupleActions
 import es.lojo.randomgroup.ui.secretcouples.states.SecretCoupleStates
 import es.lojo.randomgroup.ui.secretcouples.viewmodels.SecretCoupleViewModel
@@ -91,7 +92,7 @@ class SecretCoupleFragment : Fragment() {
                 }
                 is SecretCoupleStates.Error -> {
                     binding?.root?.let {
-                        InfolojoMessageMaker.showError(it, state.error.message)
+                        InfolojoMessageMaker.showError(it, state.error.message, timeDuration = Snackbar.LENGTH_LONG)
                     }
                 }
             }
