@@ -14,12 +14,15 @@ sealed interface SecretCoupleStates {
     data class Error(
         val error: SecretCoupleError
     ) : SecretCoupleStates
-    data class Continue(
+    data class ShowCouples(
+        val result: SecretCouplesVO
+    ) : SecretCoupleStates
+    data class SendEmail(
         val result: SecretCouplesVO
     ) : SecretCoupleStates
 }
 
-enum class SecretCoupleError(val message: String) {
+enum class SecretCoupleError(var message: String) {
     UNKNOWN(message = UNKNOWN_ERROR_TEXT),
-    NOT_PAR(message = NOT_PAR_COUPLES),
+    NOT_PAR(message = NOT_PAR_COUPLES)
 }

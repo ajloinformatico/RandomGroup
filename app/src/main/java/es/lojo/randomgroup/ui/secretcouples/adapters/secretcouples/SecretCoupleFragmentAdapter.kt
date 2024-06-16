@@ -1,4 +1,4 @@
-package es.lojo.randomgroup.ui.secretcouples.adapters
+package es.lojo.randomgroup.ui.secretcouples.adapters.secretcouples
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
