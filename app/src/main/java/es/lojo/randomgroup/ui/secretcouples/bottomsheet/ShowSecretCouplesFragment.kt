@@ -5,15 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import es.lojo.randomgroup.R
 import es.lojo.randomgroup.commons.extensions.takeSerializable
 import es.lojo.randomgroup.databinding.FragmentShowSecretCouplesListDialogBinding
+import es.lojo.randomgroup.ui.secretcouples.adapters.showsecretcouples.ShowSecretCouplesAdapter
 import es.lojo.randomgroup.ui.secretcouples.vo.model.SecretCouplesVO
 
 class ShowSecretCouplesFragment : BottomSheetDialogFragment() {
 
     private var binding: FragmentShowSecretCouplesListDialogBinding? = null
+    private val adapter = ShowSecretCouplesAdapter()
     private val secretCouplesVO: SecretCouplesVO? by lazy {
         arguments?.takeSerializable(SECRET_COUPLES)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
     }
 
     override fun onCreateView(
@@ -25,11 +33,12 @@ class ShowSecretCouplesFragment : BottomSheetDialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initViews()
+        initAdapter()
     }
 
-    private fun initViews() {
-
+    private fun initAdapter() {
+        binding?.list?.adapter = adapter
+        secretCouplesVO?.couples?.let(adapter::submitList) ?: onDestroyView()
     }
 
     override fun onDestroyView() {

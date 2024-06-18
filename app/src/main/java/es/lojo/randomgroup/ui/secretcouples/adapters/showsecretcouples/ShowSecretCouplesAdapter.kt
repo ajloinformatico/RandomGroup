@@ -1,42 +1,42 @@
 package es.lojo.randomgroup.ui.secretcouples.adapters.showsecretcouples
 
-import android.widget.ListAdapter
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
+import es.lojo.randomgroup.commons.logger.InfolojoLogger
+import es.lojo.randomgroup.commons.logger.LoggerTypes
 import es.lojo.randomgroup.databinding.FragmentShowSecretCouplesListDialogItemBinding
 import es.lojo.randomgroup.ui.secretcouples.vo.model.SecretCoupleVO
-import es.lojo.randomgroup.ui.secretcouples.vo.model.SecretCouplesVO
 
 private const val CLASS_NAME = "ShowSecretCouplesAdapter"
 
 class ShowSecretCouplesAdapter() : ListAdapter<SecretCoupleVO, ShowSecretCouplesViewHolder>(
     ShowSecretCoupleFragmentAdapterDiffUtils()
 ) {
-    //  TODO CONTINUE HERE
-}
 
-
-
-
-class ShowSecretCouplesViewHolder(
-    private val binding: FragmentShowSecretCouplesListDialogItemBinding
-) : RecyclerView.ViewHolder(binding.root) {
-
-    fun bind(item: SecretCoupleVO) {
-        // TODO()
-    }
-}
-
-class ShowSecretCoupleFragmentAdapterDiffUtils : DiffUtil.ItemCallback<SecretCoupleVO>() {
     init {
-        // TODO InfolojoLogger.log
+        InfolojoLogger.log(
+            ctx = CLASS_NAME,
+            message = "init",
+            suffix = LoggerTypes.LIST_ADAPTER
+        )
     }
 
-    override fun areItemsTheSame(oldItem: SecretCoupleVO, newItem: SecretCoupleVO): Boolean =
-        oldItem.couple.first.id == newItem.couple.first.id &&
-                oldItem.couple.second.id == oldItem.couple.second.id
+    override fun getItem(position: Int): SecretCoupleVO? = currentList.getOrNull(position)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShowSecretCouplesViewHolder =
+        ShowSecretCouplesViewHolder(
+            FragmentShowSecretCouplesListDialogItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
 
 
-    override fun areContentsTheSame(oldItem: SecretCoupleVO, newItem: SecretCoupleVO): Boolean =
-        oldItem == newItem
+    override fun onBindViewHolder(holder: ShowSecretCouplesViewHolder, position: Int) {
+        holder.bind(
+            item = getItem(position) ?: return
+        )
+    }
 }

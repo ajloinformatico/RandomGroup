@@ -2,11 +2,11 @@ package es.lojo.randomgroup.ui.secretcouples.fragments
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -20,6 +20,7 @@ import es.lojo.randomgroup.commons.logger.LoggerTypes
 import es.lojo.randomgroup.commons.objects.InfolojoMessageMaker
 import es.lojo.randomgroup.databinding.FragmentSecretCoupleBinding
 import es.lojo.randomgroup.ui.secretcouples.adapters.secretcouples.SecretCoupleFragmentAdapter
+import es.lojo.randomgroup.ui.secretcouples.bottomsheet.ShowSecretCouplesFragment
 import es.lojo.randomgroup.ui.secretcouples.states.SecretCoupleActions
 import es.lojo.randomgroup.ui.secretcouples.states.SecretCoupleStates
 import es.lojo.randomgroup.ui.secretcouples.viewmodels.SecretCoupleViewModel
@@ -82,7 +83,7 @@ class SecretCoupleFragment : Fragment() {
                     render()
                 }
                 is SecretCoupleStates.ShowCouples -> {
-                    navigateToFinalSecretCouples(state.result)
+                    openSecretCouples(state.result)
                 }
                 is SecretCoupleStates.SendEmail -> {
                     binding?.root?.let {
@@ -132,16 +133,8 @@ class SecretCoupleFragment : Fragment() {
     }
 
     /** Do navigate to Final SecretCouples to show results */
-    private fun navigateToFinalSecretCouples(result: SecretCouplesVO) {
-        navController.navigate(
-            R.id.action_secretCoupleFragment_to_finalSecretCoupleFragment,
-            Bundle().apply {
-                this.putSerializable(
-                    FinalSecretCoupleFragment.SECRET_COUPLES,
-                    result
-                )
-            }
-        )
+    private fun openSecretCouples(result: SecretCouplesVO) {
+        ShowSecretCouplesFragment.newInstance(result).show(childFragmentManager, ShowSecretCouplesFragment::class.java.simpleName)
     }
 
     private fun hideKeyBoard() {

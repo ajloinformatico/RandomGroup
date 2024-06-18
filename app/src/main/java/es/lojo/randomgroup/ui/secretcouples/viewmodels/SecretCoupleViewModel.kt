@@ -1,5 +1,6 @@
 package es.lojo.randomgroup.ui.secretcouples.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -64,6 +65,7 @@ class SecretCoupleViewModel : ViewModel() {
 
     private fun finish(sendEmail: Boolean) {
         couplesReordered ?: reorder()
+        Log.d("TonyTest", "showCouples with $couplesReordered")
         couplesReordered?.let {
             setState(
                 if (sendEmail) {
