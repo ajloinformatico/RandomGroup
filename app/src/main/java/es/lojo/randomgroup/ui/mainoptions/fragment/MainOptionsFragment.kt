@@ -8,13 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import es.lojo.randomgroup.R
-import es.lojo.randomgroup.commons.extensions.showAnimationFromBottomToTop
 import es.lojo.randomgroup.commons.extensions.showAnimationFromTopToBottom
 import es.lojo.randomgroup.commons.logger.InfolojoLogger
 import es.lojo.randomgroup.commons.logger.LoggerTypes
 import es.lojo.randomgroup.commons.objects.InfolojoMessageMaker
-import es.lojo.randomgroup.commons.ui.messageanimated.fragment.MessageAnimatedBottomSheet
-import es.lojo.randomgroup.commons.ui.messageanimated.vo.MessageAnimatedVO
 import es.lojo.randomgroup.databinding.FragmentMainOptionsBinding
 
 private const val CLASS_NAME = "MainOptionsFragment"
@@ -53,8 +50,7 @@ class MainOptionsFragment : Fragment() {
     private fun showButtonInfo(text: String) {
         InfolojoMessageMaker.showAnimatedMessage(
             text = text,
-            fragmentManager = childFragmentManager,
-            from = this
+            fragmentManager = childFragmentManager
         )
     }
 
