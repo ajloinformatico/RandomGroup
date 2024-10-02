@@ -7,9 +7,13 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import es.lojo.randomgroup.R
 import es.lojo.randomgroup.commons.extensions.takeSerializable
+import es.lojo.randomgroup.commons.logger.InfolojoLogger
+import es.lojo.randomgroup.commons.logger.LoggerTypes
 import es.lojo.randomgroup.databinding.FragmentShowSecretCouplesListDialogBinding
 import es.lojo.randomgroup.ui.secretcouples.adapters.showsecretcouples.ShowSecretCouplesAdapter
 import es.lojo.randomgroup.ui.secretcouples.vo.model.SecretCouplesVO
+
+private const val CLASS_NAME = "ShowSecretCouplesFragment"
 
 class ShowSecretCouplesFragment : BottomSheetDialogFragment() {
 
@@ -21,6 +25,11 @@ class ShowSecretCouplesFragment : BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        InfolojoLogger.log(
+            ctx = CLASS_NAME,
+            message = "init",
+            suffix = LoggerTypes.FRAGMENT_DIALOG
+        )
         setStyle(STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
     }
 

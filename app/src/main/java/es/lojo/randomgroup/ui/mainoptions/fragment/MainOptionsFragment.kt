@@ -12,6 +12,9 @@ import es.lojo.randomgroup.commons.extensions.showAnimationFromBottomToTop
 import es.lojo.randomgroup.commons.extensions.showAnimationFromTopToBottom
 import es.lojo.randomgroup.commons.logger.InfolojoLogger
 import es.lojo.randomgroup.commons.logger.LoggerTypes
+import es.lojo.randomgroup.commons.objects.InfolojoMessageMaker
+import es.lojo.randomgroup.commons.ui.messageanimated.fragment.MessageAnimatedBottomSheet
+import es.lojo.randomgroup.commons.ui.messageanimated.vo.MessageAnimatedVO
 import es.lojo.randomgroup.databinding.FragmentMainOptionsBinding
 
 private const val CLASS_NAME = "MainOptionsFragment"
@@ -48,12 +51,11 @@ class MainOptionsFragment : Fragment() {
 
     /** Show [text] info about button in screen with a animation from bottom To top. */
     private fun showButtonInfo(text: String) {
-        binding?.infoDescription?.apply {
-            this.text = text
-            showAnimationFromBottomToTop(
-                activity = activity
-            )
-        }
+        InfolojoMessageMaker.showAnimatedMessage(
+            text = text,
+            fragmentManager = childFragmentManager,
+            from = this
+        )
     }
 
     /** Hidde info about button in screen with a animation from top to bottom. */

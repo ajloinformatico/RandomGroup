@@ -134,7 +134,7 @@ class SecretCoupleFragment : Fragment() {
 
     /** Do navigate to Final SecretCouples to show results */
     private fun openSecretCouples(result: SecretCouplesVO) {
-        ShowSecretCouplesFragment.newInstance(result).show(childFragmentManager, ShowSecretCouplesFragment::class.java.simpleName)
+        InfolojoMessageMaker.showSecretCouples(couples = result, fragmentManager = childFragmentManager)
     }
 
     private fun hideKeyBoard() {
