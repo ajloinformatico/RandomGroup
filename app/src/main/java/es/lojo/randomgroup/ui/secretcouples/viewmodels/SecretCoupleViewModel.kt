@@ -8,25 +8,33 @@ import androidx.lifecycle.viewModelScope
 import es.lojo.randomgroup.commons.logger.InfolojoLogger
 import es.lojo.randomgroup.commons.logger.LoggerTypes
 import es.lojo.randomgroup.commons.utils.generateCustomUniqueId
+import es.lojo.randomgroup.data.models.EXPECTED
+import es.lojo.randomgroup.data.models.EmailSenderModel
+import es.lojo.randomgroup.features.emailsender.GMailSender
 import es.lojo.randomgroup.ui.secretcouples.states.SecretCoupleError
 import es.lojo.randomgroup.ui.secretcouples.states.SecretCoupleStates
 import es.lojo.randomgroup.ui.secretcouples.utils.EmailHelper
 import es.lojo.randomgroup.ui.secretcouples.vo.extensions.reorderListOfSingleCouples
 import es.lojo.randomgroup.ui.secretcouples.vo.model.SecretCouplesVO
 import es.lojo.randomgroup.ui.secretcouples.vo.model.SingleSecretCoupleVO
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 private const val CLASS_NAME = "SecretCoupleViewModel"
 
 class SecretCoupleViewModel : ViewModel() {
+    // region attr
+    private val gMailSender = GMailSender()
+    private var couplesReordered: SecretCouplesVO? = null
+    // endregion attr
+
     // region view states
     private val _viewState = MutableLiveData<SecretCoupleStates>()
+
     val viewState: LiveData<SecretCoupleStates> = _viewState
-
     private val _items = MutableLiveData<List<SingleSecretCoupleVO>>()
-    val items: LiveData<List<SingleSecretCoupleVO>> = _items
 
-    private var couplesReordered: SecretCouplesVO? = null
+    val items: LiveData<List<SingleSecretCoupleVO>> = _items
 
     fun setState(value: SecretCoupleStates) {
         _viewState.postValue(value)
@@ -77,6 +85,39 @@ class SecretCoupleViewModel : ViewModel() {
         }
     }
 
+    private fun getModelEmailSenderModel(recipient: String, couple: String): EmailSenderModel {
+        return EmailSenderModel(
+            recipients = recipient,
+            body = "Your secret couple is $couple",
+            subject = "RANDOM GROUP secret couples"
+        )
+    }
+
+    // reorder list
+    private fun reorder() {
+        _items.value?.takeIf { it.size % 2 == 0 }?.let { couples ->
+            if (checkEmails(couples)) {
+                couplesReordered = couples.reorderListOfSingleCouples()
+            }
+        } ?: setState(SecretCoupleStates.Error(SecretCoupleError.NOT_PAR))
+    }
+
+    private fun checkEmails(secretCouples: List<SingleSecretCoupleVO>): Boolean {
+        return secretCouples.find { EmailHelper.checkEmail(it.email).not() }?.let {
+            setState(
+                SecretCoupleStates.Error(
+                    SecretCoupleError.UNKNOWN.apply {
+                        message = if (it.email.isEmpty()) {
+                            EmailHelper.EMAIL_IS_EMPTY
+                        } else {
+                            "${it.email} ${EmailHelper.EMAIL_NOT_VALID_TEXT}"
+                        }
+                    }
+                )
+            )
+            false
+        } ?: true
+    }
     // endregion private
 
     // region public
@@ -109,38 +150,35 @@ class SecretCoupleViewModel : ViewModel() {
         _items.value = newItems
     }
 
-    // reorder list
-    private fun reorder() {
-        _items.value?.takeIf { it.size % 2 == 0 }?.let { couples ->
-            if (checkEmails(couples)) {
-                couplesReordered = couples.reorderListOfSingleCouples()
-            }
-        } ?: setState(SecretCoupleStates.Error(SecretCoupleError.NOT_PAR))
-    }
-
-    private fun checkEmails(secretCouples: List<SingleSecretCoupleVO>): Boolean {
-        return secretCouples.find { EmailHelper.checkEmail(it.email).not() }?.let {
-            setState(
-                SecretCoupleStates.Error(
-                    SecretCoupleError.UNKNOWN.apply {
-                        message = if (it.email.isEmpty()) {
-                            EmailHelper.EMAIL_IS_EMPTY
-                        } else {
-                            "${it.email} ${EmailHelper.EMAIL_NOT_VALID_TEXT}"
-                        }
-                    }
-                )
-            )
-            false
-        } ?: true
-    }
-
     fun showCouples() {
         finish(sendEmail = false)
     }
 
     fun sendEmail() {
         finish(sendEmail = true)
+    }
+
+    fun setUpSendEMail(secretCouples: SecretCouplesVO) {
+        viewModelScope.launch(Dispatchers.IO) {
+            secretCouples.couples.forEach {
+                listOf(
+                    getModelEmailSenderModel(
+                        recipient = it.couple.first.email,
+                        couple = it.couple.second.email
+                    ),
+                    getModelEmailSenderModel(
+                        recipient = it.couple.second.email,
+                        couple = it.couple.first.email
+                    )
+                ).forEach { emailSenderModel ->
+                    if (gMailSender.sendMail(emailSenderModel) == EXPECTED.FAILURE) {
+                        setState(SecretCoupleStates.Error(SecretCoupleError.EMAIL_COULD_NOT_BE_SENT))
+                        return@launch
+                    }
+                }
+            }
+            setState(SecretCoupleStates.EmailSuccess())
+        }
     }
     // endregion public
 }

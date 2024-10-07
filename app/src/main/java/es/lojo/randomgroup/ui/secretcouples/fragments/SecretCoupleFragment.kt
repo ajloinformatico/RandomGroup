@@ -86,10 +86,7 @@ class SecretCoupleFragment : Fragment() {
                     openSecretCouples(state.result)
                 }
                 is SecretCoupleStates.SendEmail -> {
-                    binding?.root?.let {
-                        Log.d("TonyTest", "result to send ${state.result}")
-                        InfolojoMessageMaker.showPositiveMessage(it, "send email with = ${state.result}")
-                    }
+                    viewModel.setUpSendEMail(state.result)
                 }
                 is SecretCoupleStates.Error -> {
                     binding?.root?.let {

@@ -2,6 +2,8 @@ package es.lojo.randomgroup.features.emailsender
 
 import es.lojo.randomgroup.commons.logger.InfolojoLogger
 import es.lojo.randomgroup.commons.logger.LoggerTypes
+import es.lojo.randomgroup.data.models.EXPECTED
+import es.lojo.randomgroup.data.models.EmailSenderModel
 import java.io.ByteArrayInputStream
 import java.io.IOException
 import java.io.InputStream
@@ -20,15 +22,13 @@ import javax.mail.internet.MimeMessage
 
 private const val DEFAULT_HOST = "smtp.gmail.com"
 private const val CLASS_NAME = "GMailSender"
-
+private const val SENDER = "rrandomgroup@gmail.com"
+private const val PASSWORD = "**** **** **** ****"
 /**
  * Send email class
  * it has been inspirited by: https://stackoverflow.com/questions/2020088/sending-email-in-android-using-javamail-api-without-using-the-default-built-in-a
  */
-class GMailSender(
-    private val gmail: String,
-    private val password: String
-) : Authenticator() {
+class GMailSender : Authenticator() {
     private val session: Session
 
     init {
@@ -37,6 +37,7 @@ class GMailSender(
             message = "init $CLASS_NAME",
             suffix = LoggerTypes.FEATURE
         )
+        System.setProperty("https.protocols", "TLSv1.2,TLSv1.3")
 
         val props = Properties()
         props.setProperty("mail.transport.protocol", "smtp")
@@ -46,25 +47,26 @@ class GMailSender(
         props["mail.smtp.socketFactory.port"] = "465"
         props["mail.smtp.socketFactory.class"] = "javax.net.ssl.SSLSocketFactory"
         props["mail.smtp.socketFactory.fallback"] = "false"
-        props.setProperty("mail.smtp.quitwait", "false")
+        props["mail.smtp.quitwait"] = "false"
+        props["mail.smtp.ssl.protocols"] = "TLSv1.2"
 
         session = Session.getDefaultInstance(props, this)
     }
 
     override fun getPasswordAuthentication(): PasswordAuthentication {
-        return PasswordAuthentication(gmail, password)
+        return PasswordAuthentication(SENDER, PASSWORD)
     }
 
     @Synchronized
-    @Throws(Exception::class)
-    fun sendMail(subject: String?, body: String, sender: String?, recipients: String) {
-        try {
+    fun sendMail(senderModel: EmailSenderModel): EXPECTED {
+        return try {
             val message = MimeMessage(session)
-            val handler = DataHandler(ByteArrayDataSource(body.toByteArray(), "text/plain"))
+            val handler = DataHandler(ByteArrayDataSource(senderModel.body.toByteArray(), "text/plain"))
+            val recipients = senderModel.recipients
 
             message.apply {
-                this.sender = InternetAddress(sender)
-                this.subject = subject
+                this.sender = InternetAddress(SENDER)
+                this.subject = senderModel.subject
                 dataHandler = handler
                 if (recipients.indexOf(',') > 0) setRecipients(
                     Message.RecipientType.TO,
@@ -73,9 +75,10 @@ class GMailSender(
                 else setRecipient(Message.RecipientType.TO, InternetAddress(recipients))
                 Transport.send(this)
             }
-
+            EXPECTED.SUCCESS
         } catch (e: Exception) {
             InfolojoLogger.log(CLASS_NAME, message = e.message.orEmpty())
+            EXPECTED.FAILURE
         }
     }
 
