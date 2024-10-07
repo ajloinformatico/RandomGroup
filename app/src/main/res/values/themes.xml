@@ -10,13 +10,35 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorOnPrimary</item>
+        <!--<item name="android:statusBarColor" tools:targetApi="l">?attr/colorOnPrimary</item>-->
         <!-- Customize your theme here. -->
     </style>
 
     <style name="NoActionBar" parent="Theme.RandomGroup">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <!--texts-->
+    <style name="title">
+        <item name="android:textSize">48sp</item>
+        <item name="android:gravity">start</item>
+    </style>
+
+    <style name="subStyle">
+        <item name="android:textSize">36sp</item>
+    </style>
+
+    <style name="text_large">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="text_overly">
+        <item name="android:gravity">center|start</item>
+        <item name="android:padding">@dimen/dp20</item>
+        <item name="android:textSize">@dimen/sp20</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/back_ground_overly</item>
     </style>
 
     <!--play button-->
@@ -30,8 +52,18 @@
     </style>
 
     <!--continue button -->
-    <style name="continueButton">
+    <style name="commonButton">
         <item name="android:backgroundTint">@color/black_gray</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="sendCouples">
+        <item name="android:backgroundTint">@color/success</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="warningBase">
+        <item name="android:backgroundTint">@color/warning</item>
         <item name="android:textColor">@color/white</item>
     </style>
 
@@ -46,6 +78,19 @@
 
     <style name="customCardViewContent">
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!--Button sheet-->
+    <style name="CustomBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
+    </style>
+
+    <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="CustomBottomSheetDullScreen" parent="CustomBottomSheetDialogTheme">
+        <item name="android:layout_height">match_parent</item>
     </style>
 
 </resources>

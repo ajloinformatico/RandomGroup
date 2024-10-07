@@ -5,14 +5,24 @@
     <dimen name="defaultLabel">26sp</dimen>
     <dimen name="defaultInput">20sp</dimen>
     <dimen name="minIntLabel">48dp</dimen>
+    <dimen name="buttonSheetDragIndicator">@dimen/dp60</dimen>
 
     <!--unknown dimens-->
     <dimen name="sp20">20sp</dimen>
     <dimen name="sp40">40sp</dimen>
-    <dimen name="dp100">100dp</dimen>
+    <dimen name="dp1">1dp</dimen>
+    <dimen name="dp2">2dp</dimen>
+    <dimen name="dp5">5dp</dimen>
+    <dimen name="dp6">6dp</dimen>
+    <dimen name="dp7">7dp</dimen>
+    <dimen name="dp8">8dp</dimen>
+    <dimen name="dp10">10dp</dimen>
     <dimen name="dp20">20dp</dimen>
+    <dimen name="dp30">30dp</dimen>
     <dimen name="dp40">40dp</dimen>
     <dimen name="dp60">60dp</dimen>
+    <dimen name="dp100">100dp</dimen>
+    <dimen name="dp200">200dp</dimen>
 
     <!-- grids padding -->
     <dimen name="defaultPadding">16dp</dimen>
@@ -22,5 +32,7 @@
     <dimen name="recycler_configure_player_name_margin">58dp</dimen>
 
     <!-- dividers -->
-    <dimen name="configurePlayersGroupDivider">100dp</dimen>
+    <dimen name="configurePlayersGroupDivider">@dimen/dp100</dimen>
+    <dimen name="list_item_spacing">16dp</dimen>
+    <dimen name="list_item_spacing_half">8dp</dimen>
 </resources>
