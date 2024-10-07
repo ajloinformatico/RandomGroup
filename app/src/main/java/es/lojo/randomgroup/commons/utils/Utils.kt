@@ -1,6 +1,5 @@
 package es.lojo.randomgroup.commons.utils
 
-import es.lojo.randomgroup.commons.logger.InfolojoLogger
 import kotlin.random.Random
 
 /**

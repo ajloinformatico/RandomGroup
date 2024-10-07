@@ -11,6 +11,7 @@ private const val DIFF_UTILS_VALUE = "diffUtils"
 private const val LIST_ADAPTER_VALUE = "listAdapter"
 private const val OBJECT_VALUE = "Object"
 private const val RANDOM_APP = "randomGroupApp"
+private const val FEATURE_VALUE = "feature"
 
 enum class LoggerTypes(val value: String) {
     ACTIVITY(ACTIVITY_VALUE),
@@ -21,5 +22,6 @@ enum class LoggerTypes(val value: String) {
     DIFF_UTILS(DIFF_UTILS_VALUE),
     LIST_ADAPTER(LIST_ADAPTER_VALUE),
     OBJECT(OBJECT_VALUE),
+    FEATURE(FEATURE_VALUE),
     UNKNOWN(RANDOM_APP)
 }
